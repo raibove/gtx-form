@@ -1,0 +1,20 @@
+.terms-container{
+    padding: 0 80px;
+    max-width: 720px;
+}
+
+.terms-title{
+    font-weight: unset;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.terms-description{
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    margin-top: 8px;
+    font-weight: unset;
+    font-size: 20px;
+    line-height: 28px;
+}

@@ -1,6 +1,7 @@
-.buttoncontainer{
+.button-container{
     display: flex;
     align-items: center;
+    margin-top: 16px;
 }
 
 .press-enter{

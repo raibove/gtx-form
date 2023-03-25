@@ -8,6 +8,7 @@
     
     line-height: inherit;
     font-weight: 700;
+    font-family: 'Questrial', sans-serif;
     cursor: pointer;
     transition-duration: 0.1s;
     transition-property: background-color, color, border-color, opacity, box-shadow;
