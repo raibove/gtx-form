@@ -1,6 +1,5 @@
 .logo {
-  margin: 10px;
-  height: 100px;
+  margin: 20px;
   width: 120px;
 }
 
@@ -29,10 +28,10 @@
 }
 
 .full-scroll-page-content {
-  max-height: calc(100vh - 120px);
-  height: calc(100vh - 120px);
+  max-height: calc(100vh - 200px);
+  height: calc(100vh - 200px);
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 100px;
 }

@@ -1,31 +1,12 @@
 import React from 'react';
+import Terms from './components/Terms/Terms';
 import FullScroll from './FullScroll';
 
 function App() {
   return (
     <FullScroll>
       <div>
-      <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p> <h1>Page 1</h1>
-        <p>This is the content for page 1</p>
+        <Terms />
       </div>
       <div>
         <h1>Page 2</h1>
