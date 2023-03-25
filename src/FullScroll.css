@@ -1,0 +1,27 @@
+.logo {
+  margin: 20px;
+  width: 120px;
+}
+
+.full-scroll-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  overflow: hidden;
+}
+
+.full-scroll-content::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.full-scroll-content {
+    color: white;
+  width: 100%;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.full-scroll-page {
+  height: 100vh;
+  scroll-snap-align: start;
+}
