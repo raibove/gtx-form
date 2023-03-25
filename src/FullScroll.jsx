@@ -20,6 +20,9 @@ function FullScroll(props) {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // for enter detect
+    containerRef.current.focus();
+
     let isScrolling = false;
 
     const handleScroll = (event) => {
@@ -71,8 +74,22 @@ function FullScroll(props) {
     scrollBehavior: "smooth",
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      setCurrentPageIndex((prevPageIndex) =>
+        Math.min(prevPageIndex + 1, pages.length - 1)
+      );
+    }
+  };
+
   return (
-    <div className="full-scroll-container" ref={containerRef}>
+    <div
+      className="full-scroll-container"
+      ref={containerRef}
+      tabIndex="0"
+      onKeyDown={handleKeyDown}
+    >
       <div className="full-scroll-content" style={containerStyle}>
         {pages.map((page, index) => (
           <FullScrollPage key={index} logo={gxtLogo}>
