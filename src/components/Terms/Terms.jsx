@@ -1,3 +1,4 @@
+import ButtonContainer from "../ButtonContainer/ButtonContainer";
 
 const Terms = ()=>{
     return(
@@ -11,6 +12,7 @@ const Terms = ()=>{
                 <li> 15 hours/week for the last 3 weeks</li>
             </ul>
             </p>
+            <ButtonContainer buttonText="I agree" showPressEnter={true} />
         </div>
     )
 }
