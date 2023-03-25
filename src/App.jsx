@@ -5,7 +5,26 @@ function App() {
   return (
     <FullScroll>
       <div>
-        <h1>Page 1</h1>
+      <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
+        <p>This is the content for page 1</p> <h1>Page 1</h1>
         <p>This is the content for page 1</p>
       </div>
       <div>

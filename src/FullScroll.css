@@ -1,5 +1,6 @@
 .logo {
-  margin: 20px;
+  margin: 10px;
+  height: 100px;
   width: 120px;
 }
 
@@ -15,13 +16,23 @@
 }
 
 .full-scroll-content {
-    color: white;
+  color: white;
   width: 100%;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 }
 
 .full-scroll-page {
-  height: 100vh;
+  height: calc(100vh);
+  width: 100%;
   scroll-snap-align: start;
+}
+
+.full-scroll-page-content {
+  max-height: calc(100vh - 120px);
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
