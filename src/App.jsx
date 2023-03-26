@@ -3,6 +3,7 @@ import Terms from "./components/Terms/Terms";
 import TextInput from "./components/TextInput/TextInput";
 import FullScroll from "./FullScroll";
 import "./App.css";
+import SelectInput from "./components/SelectInput/SelectInput";
 
 const questions = [
   {
@@ -17,6 +18,13 @@ const questions = [
     text: "and what is your last name, {name}?",
     isRequired: true,
   },
+  {
+    id:3,
+    type: "select",
+    text: "What industry is your company in?",
+    isRequired: true,
+    subTitle: "We will personalize your learning experience accordingly",
+  }
 ];
 
 const initialAnswersState = questions.map((question) => ({
@@ -60,6 +68,16 @@ function App() {
             questionText={questionText}
           />
         );
+      case "select":
+          return(
+            <SelectInput 
+              key={question.id}
+              question={question}
+              onAnswer={handleAnswer}
+              showError={showError}
+              questionText={questionText}
+            />
+          )
       default:
         return null;
     }
