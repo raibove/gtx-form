@@ -45,6 +45,10 @@ function App() {
   };
 
   const getCurrentQuestion = (question) => {
+    const questionText = question.text.replace(
+      "{name}",
+      answers[0].value
+    );
     switch (question.type) {
       case "text":
         return (
@@ -53,6 +57,7 @@ function App() {
             question={question}
             onAnswer={handleAnswer}
             showError={showError}
+            questionText={questionText}
           />
         );
       default:
@@ -61,9 +66,7 @@ function App() {
   };
 
   const handleShowError = (newError)=>{
-    if(newError==!showError){
-      setShowError(newError)
-    }
+    setShowError(newError)
   }
 
   return (

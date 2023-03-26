@@ -3,7 +3,7 @@ import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
 
-const TextInput = ({ question, onAnswer, showError }) => {
+const TextInput = ({ question, onAnswer, showError, questionText }) => {
   return (
     <div>
       <div className="question-number-container">
@@ -12,7 +12,7 @@ const TextInput = ({ question, onAnswer, showError }) => {
           <img src={rightArrow} alt="right arrow" className="right-arrow" />
         </span>
         <label className="question-text" htmlFor={question.id}>
-          {question.text} {question.isRequired && <span>*</span>}
+          {questionText} {question.isRequired && <span>*</span>}
         </label>
       </div>
       <div>
