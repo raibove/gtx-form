@@ -4,35 +4,44 @@ import TextInput from "./components/TextInput/TextInput";
 import FullScroll from "./FullScroll";
 import "./App.css";
 
-function App() {
-  const questions = [
-    {
-      id: 1,
-      type: "text",
-      text: "What's is your first name?",
-      isRequired: true,
-    },
-    {
-      id: 2,
-      type: "text",
-      text: "and what is your last name, {name}?",
-      isRequired: true,
-    },
-  ];
+const questions = [
+  {
+    id: 1,
+    type: "text",
+    text: "What's is your first name?",
+    isRequired: true,
+  },
+  {
+    id: 2,
+    type: "text",
+    text: "and what is your last name, {name}?",
+    isRequired: true,
+  },
+];
 
-  const [answers, setAnswers] = useState([]);
+const initialAnswersState = questions.map((question) => ({ id:question.id, type: question.type, value: null }));
+
+function App() {
+
+  const [answers, setAnswers] = useState(initialAnswersState);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleAnswer = (answer) => {
-    setAnswers((prevAnswers) => [...prevAnswers, answer]);
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    console.log(answers)
+    setAnswers((prevAnswers) => {
+      const newAnswers = [...prevAnswers];
+      newAnswers[currentQuestionIndex].value = answer;
+      return newAnswers;
+    });
+    // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
+  
 
   const handleScroll = (dir) => {
     if (dir === "up") {
-      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-    } else {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1,0));
+    } else if(dir==="down"){
+      setCurrentQuestionIndex((prevIndex) => Math.min( prevIndex + 1, questions.length-1));
     }
   };
 
@@ -54,7 +63,7 @@ function App() {
   };
 
   return (
-    <FullScroll>
+    <FullScroll currentQuestionIndex={currentQuestionIndex} answers={answers} questions={questions} handleUpdateQuestionIndex={handleScroll}>
       <div>
         <Terms />
       </div>

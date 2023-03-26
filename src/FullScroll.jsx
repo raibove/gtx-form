@@ -14,10 +14,39 @@ const FullScrollPage = (props) => {
 };
 
 function FullScroll(props) {
+  const {currentQuestionIndex, questions, answers, handleUpdateQuestionIndex} = props;
+
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
   const SCROLL_THRESHOLD = 30;
   const containerRef = useRef(null);
+
+  const isQuestionIndex = (pageIndex)=>{
+    if(pageIndex===0){
+      return false;
+    }
+    return true;
+  }
+
+  const isRequiredQuestionAnswered = ()=>{
+    if( questions[currentQuestionIndex].isRequired===true && answers[currentQuestionIndex].value===null)
+      return true 
+    return false
+  }
+
+  const handleNextQuestion = (prevPageIndex)=>{
+
+    if(isQuestionIndex(prevPageIndex) && isRequiredQuestionAnswered()){
+      return prevPageIndex;
+    }
+    return Math.min(prevPageIndex + 1, pages.length - 1);
+  }
+
+  const getNextIndex = (prevPageIndex, delta) => {
+    return delta > 0
+      ? handleNextQuestion(prevPageIndex)
+      :  Math.max(prevPageIndex - 1, 0);
+  }
 
   useEffect(() => {
     // for enter detect
@@ -47,11 +76,16 @@ function FullScroll(props) {
         } else {
           // Allow normal scrolling behavior
           isScrolling = true;
-          setCurrentPageIndex((prevPageIndex) =>
-            delta > 0
-              ? Math.min(prevPageIndex + 1, pages.length - 1)
-              : Math.max(prevPageIndex - 1, 0)
-          );
+          setCurrentPageIndex((prevPageIndex) => getNextIndex(prevPageIndex, delta));
+
+          if(!isQuestionIndex(currentPageIndex+1)){
+            if(delta>0){
+              handleUpdateQuestionIndex("up")
+            }else if(delta<0){
+              handleUpdateQuestionIndex("down")
+            }
+          }
+
           setTimeout(() => {
             isScrolling = false;
           }, 1000);
