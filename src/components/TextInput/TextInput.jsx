@@ -1,8 +1,9 @@
 import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
+import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
 
-const TextInput = ({ question, onAnswer }) => {
+const TextInput = ({ question, onAnswer, showError }) => {
   return (
     <div>
       <div className="question-number-container">
@@ -24,7 +25,10 @@ const TextInput = ({ question, onAnswer }) => {
         />
       </div>
       <div>
-        <ButtonContainer buttonText="OK" showPressEnter={true} />
+        {showError && <ErrorContainer/>}
+      </div>
+      <div>
+        {!showError && <ButtonContainer buttonText="OK" showPressEnter={true} />}
       </div>
     </div>
   );

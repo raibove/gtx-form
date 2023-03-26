@@ -1,0 +1,29 @@
+.error-container{
+    background-color: rgb(247, 230, 230);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 24px;
+    outline: 0px;
+    padding: 4px 12px 4px 8px;
+    margin-top: 28px;
+}
+
+.error-text{
+    margin: 0px;
+    max-width: 100%;
+    width: inherit;
+    font-weight: unset;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(175, 4, 4);
+    font-family: sans-serif;
+}
+
+.alert{
+    margin-right: 10px;
+    height: 16px;
+    /* width: 20px; */
+}

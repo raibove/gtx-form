@@ -27,7 +27,7 @@ const initialAnswersState = questions.map((question) => ({
 
 function App() {
   const [answers, setAnswers] = useState(initialAnswersState);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showError, setShowError] = useState(false);
 
   const handleAnswer = (answer, questionId) => {
     setAnswers((prevAnswers) => {
@@ -35,16 +35,8 @@ function App() {
       newAnswers[questionId - 1].value = answer;
       return newAnswers;
     });
-    // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
-  // const handleScroll = (dir) => {
-  //   if (dir === "up") {
-  //     setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1,0));
-  //   } else if(dir==="down"){
-  //     setCurrentQuestionIndex((prevIndex) => Math.min( prevIndex + 1, questions.length-1));
-  //   }
-  // };
 
   const getCurrentQuestion = (question) => {
     switch (question.type) {
@@ -54,6 +46,7 @@ function App() {
             key={question.id}
             question={question}
             onAnswer={handleAnswer}
+            showError={showError}
           />
         );
       default:
@@ -61,8 +54,12 @@ function App() {
     }
   };
 
+  const handleShowError = (newError)=>{
+    setShowError(newError)
+  }
+
   return (
-    <FullScroll answers={answers} questions={questions}>
+    <FullScroll answers={answers} questions={questions} handleShowError={handleShowError}>
       <div>
         <Terms />
       </div>
