@@ -51,10 +51,15 @@ function FullScroll(props) {
     return Math.min(pageIndex + 1, pages.length - 1);
   };
 
+  const handlePrevQuestion = (pageIndex)=>{
+    handleShowError(false)
+    return Math.max(pageIndex - 1, 0);
+  }
+
   const getNextIndex = (prevPageIndex, delta) => {
     return delta > 0
       ? handleNextQuestion(prevPageIndex)
-      : Math.max(prevPageIndex - 1, 0);
+      : handlePrevQuestion(prevPageIndex);
   };
 
   useEffect(() => {
@@ -113,7 +118,7 @@ function FullScroll(props) {
     if (event.key === "Enter") {
       event.preventDefault();
       setCurrentPageIndex((prevPageIndex) =>
-        Math.min(prevPageIndex + 1, pages.length - 1)
+        handleNextQuestion(prevPageIndex)
       );
     }
   };

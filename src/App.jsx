@@ -30,13 +30,19 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const handleAnswer = (answer, questionId) => {
+    if(answer===" ")
+      return;
+
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
       newAnswers[questionId - 1].value = answer;
       return newAnswers;
     });
-  };
 
+    if(showError===true){
+      setShowError(false)
+    }
+  };
 
   const getCurrentQuestion = (question) => {
     switch (question.type) {
@@ -55,7 +61,9 @@ function App() {
   };
 
   const handleShowError = (newError)=>{
-    setShowError(newError)
+    if(newError==!showError){
+      setShowError(newError)
+    }
   }
 
   return (
