@@ -1,6 +1,40 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+.question-container{
+  padding: 0 80px;
+  max-width: 720px;
+}
+
+.right-arrow{
+  height: 10px;
+  width: 10px;
+}
+
+.question-number{
+  font-size: 14px;
+  line-height: 20px;
+  margin-right: 12px;
+}
+
+.question-text{
+  font-size: 24px;
+  line-height: 32px;
+}
+
+input{
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  background-color: black;
+}
+
+input:focus{
+  outline: none;
+  border-bottom: white;
 }
