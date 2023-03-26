@@ -19,34 +19,34 @@ const questions = [
   },
 ];
 
-const initialAnswersState = questions.map((question) => ({ id:question.id, type: question.type, value: null }));
+const initialAnswersState = questions.map((question) => ({
+  id: question.id,
+  type: question.type,
+  value: null,
+}));
 
 function App() {
-
   const [answers, setAnswers] = useState(initialAnswersState);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const handleAnswer = (answer) => {
-    console.log(answers)
+  const handleAnswer = (answer, questionId) => {
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
-      newAnswers[currentQuestionIndex].value = answer;
+      newAnswers[questionId - 1].value = answer;
       return newAnswers;
     });
     // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
-  
 
-  const handleScroll = (dir) => {
-    if (dir === "up") {
-      setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1,0));
-    } else if(dir==="down"){
-      setCurrentQuestionIndex((prevIndex) => Math.min( prevIndex + 1, questions.length-1));
-    }
-  };
+  // const handleScroll = (dir) => {
+  //   if (dir === "up") {
+  //     setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1,0));
+  //   } else if(dir==="down"){
+  //     setCurrentQuestionIndex((prevIndex) => Math.min( prevIndex + 1, questions.length-1));
+  //   }
+  // };
 
   const getCurrentQuestion = (question) => {
-
     switch (question.type) {
       case "text":
         return (
@@ -56,14 +56,13 @@ function App() {
             onAnswer={handleAnswer}
           />
         );
-        default:
-          return null;
+      default:
+        return null;
     }
-    
   };
 
   return (
-    <FullScroll currentQuestionIndex={currentQuestionIndex} answers={answers} questions={questions} handleUpdateQuestionIndex={handleScroll}>
+    <FullScroll answers={answers} questions={questions}>
       <div>
         <Terms />
       </div>
