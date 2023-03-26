@@ -16,7 +16,7 @@ const FullScrollPage = (props) => {
 function FullScroll(props) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
-  const SCROLL_THRESHOLD = 50;
+  const SCROLL_THRESHOLD = 30;
   const containerRef = useRef(null);
 
   useEffect(() => {
