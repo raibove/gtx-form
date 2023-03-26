@@ -9,7 +9,7 @@ function App() {
     {
       id: 1,
       type: "text",
-      text: "What is your first name?",
+      text: "What's is your first name?",
       isRequired: true,
     },
     {
