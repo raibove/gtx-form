@@ -10,15 +10,44 @@ const customStyles = {
     ...provided,
     border: "1px solid #ccc",
     padding: 10,
+    margin: 10,
+    width: "95%",
+    color: "white",
+    // backgroundColor: "#808080",
   }),
+  menuList: (provided) => ({
+    ...provided,
+    border: 0,
+    backgroundColor: "black", // Change the color of the dropdown arrow
+  }),
+  control: (base, state) => ({
+    ...base,
+    boxShadow: "rgb(255, 255, 255) 0px 2px",
+    minWidth: "242px",
+    zIndex: 9999,
+    border: 0,
+    color: "white",
+    backgroundColor: "black",
+    "&:hover": { borderColor: "gray" }, // border style on hover
+  }),
+  singleValue: (styles) => ({
+    ...styles,
+    color: "white",
+    fontSize: "30px"
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    fontSize:"30px"
+  }),
+  indicatorSeparator: (styles) =>({
+    ...styles,
+    display: 'none'
+  })
 };
 
 const SelectInput = ({ question, onAnswer, showError, questionText }) => {
-  const [options, setOptions] = useState(getData());
+  const options = getData();
 
-  // useEffect(()=>(
-  //     getData()
-  // ),[])
   return (
     <div>
       <div className="question-number-container">
@@ -30,11 +59,15 @@ const SelectInput = ({ question, onAnswer, showError, questionText }) => {
           {questionText} {question.isRequired && <span>*</span>}
         </label>
       </div>
-      <div>
+      <div style={{marginTop:'32px'}}>
         <Select
-            options={options}
-            onChange={(option)=>{onAnswer(option, question.id)}}
-            styles={customStyles}
+          isClearable={true}
+          options={options}
+          onChange={(option) => {
+            onAnswer(option, question.id);
+          }}
+          styles={customStyles}
+          captureMenuScroll={true}
         />
       </div>
       <div>{showError && <ErrorContainer />}</div>
