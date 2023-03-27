@@ -1,18 +1,17 @@
-import {useRef, useEffect, useState} from "react";
+import { useRef, useEffect, useState } from "react";
 import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
-import useIsInViewport from "../../hooks/useIsInViewport"
+import useIsInViewport from "../../hooks/useIsInViewport";
 
 const TextInput = ({ question, onAnswer, showError, questionText }) => {
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
   const isInViewport1 = useIsInViewport(inputRef);
-  
+
   useEffect(() => {
     // 👇️ listen for changes
-    if(isInViewport1)
-      inputRef.current.focus()
+    if (isInViewport1) inputRef.current.focus();
   }, [isInViewport1]);
 
   return (
@@ -36,11 +35,11 @@ const TextInput = ({ question, onAnswer, showError, questionText }) => {
           placeholder="Type your answer here ..."
         />
       </div>
+      <div>{showError && <ErrorContainer />}</div>
       <div>
-        {showError && <ErrorContainer/>}
-      </div>
-      <div>
-        {!showError && <ButtonContainer buttonText="OK" showPressEnter={true} />}
+        {!showError && (
+          <ButtonContainer buttonText="OK" showPressEnter={true} />
+        )}
       </div>
     </div>
   );

@@ -39,22 +39,18 @@ function FullScroll(props) {
   };
 
   const handleNextQuestion = (pageIndex) => {
-
     // dont scroll if required not filled
-    if (
-      isQuestion(pageIndex) &&
-      isRequiredQuestionAnswered(pageIndex)
-    ) {
+    if (isQuestion(pageIndex) && isRequiredQuestionAnswered(pageIndex)) {
       handleShowError(true);
       return pageIndex;
     }
     return Math.min(pageIndex + 1, pages.length - 1);
   };
 
-  const handlePrevQuestion = (pageIndex)=>{
-    handleShowError(false)
+  const handlePrevQuestion = (pageIndex) => {
+    handleShowError(false);
     return Math.max(pageIndex - 1, 0);
-  }
+  };
 
   const getNextIndex = (prevPageIndex, delta) => {
     return delta > 0
@@ -117,9 +113,7 @@ function FullScroll(props) {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      setCurrentPageIndex((prevPageIndex) =>
-        handleNextQuestion(prevPageIndex)
-      );
+      setCurrentPageIndex((prevPageIndex) => handleNextQuestion(prevPageIndex));
     }
   };
 

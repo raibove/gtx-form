@@ -49,8 +49,8 @@
   cursor: pointer;
 }
 
-.radio-label{
-    flex-grow: 1;
+.radio-label {
+  flex-grow: 1;
 }
 
 .radio-text {
@@ -95,16 +95,16 @@
   color: rgb(0, 0, 0);
 }
 
-.checked{
-    opacity: 0;
-    flex-shrink: 0;
-    padding: 0px 12px 0px 20px;
+.checked {
+  opacity: 0;
+  flex-shrink: 0;
+  padding: 0px 12px 0px 20px;
 }
 
-.checked.active{
-    opacity: 1;
+.checked.active {
+  opacity: 1;
 }
 
-.radio-checked{
-    width: 16px;
+.radio-checked {
+  width: 16px;
 }

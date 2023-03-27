@@ -1,10 +1,10 @@
-.button-container{
-    display: flex;
-    align-items: center;
-    margin-top: 22px;
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
 }
 
-.press-enter{
-    margin-left: 12px;
-    font-size: 12px;
+.press-enter {
+  margin-left: 12px;
+  font-size: 12px;
 }

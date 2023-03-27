@@ -4,47 +4,41 @@ import check from "../../assets/check.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./CheckboxInput.css";
-import useIsInViewport from "../../hooks/useIsInViewport"
+import useIsInViewport from "../../hooks/useIsInViewport";
 
-const CheckboxInput = ({
-  question,
-  onAnswer,
-  showError,
-  questionText,
-}) => {
-  const checkboxRef = useRef(null)
+const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
+  const checkboxRef = useRef(null);
   const isInViewport1 = useIsInViewport(checkboxRef);
 
   useEffect(() => {
     // 👇️ listen for changes
-    
-    if(isInViewport1){
-      checkboxRef.current.focus()
+
+    if (isInViewport1) {
+      checkboxRef.current.focus();
     }
   }, [isInViewport1]);
 
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionChange = (option) => {
-    onAnswer(option, question.id)
+    onAnswer(option, question.id);
     setSelectedOption(option);
   };
 
   const handleKeyDown = (event) => {
-    if(event.key.length === 1 && /[a-dA-D]/.test(event.key)){
+    if (event.key.length === 1 && /[a-dA-D]/.test(event.key)) {
       const key = event.key.toUpperCase().charCodeAt(0);
-      const index = key - 65
-      if (index<question.options.length) {
-        onAnswer(question.options[index], question.id)
+      const index = key - 65;
+      if (index < question.options.length) {
+        onAnswer(question.options[index], question.id);
         setSelectedOption(question.options[index]);
       }
     }
   };
 
-
   return (
     <div>
-      <div className="question-number-container" >
+      <div className="question-number-container">
         <span className="question-number">
           {question.id}{" "}
           <img src={rightArrow} alt="right arrow" className="right-arrow" />
@@ -56,7 +50,13 @@ const CheckboxInput = ({
       <div className="question-subtitle">
         <span>{question.subTitle}</span>
       </div>
-      <div className="radio-group" role="radiogroup" ref={checkboxRef} onKeyDown={handleKeyDown} tabIndex={0}>
+      <div
+        className="radio-group"
+        role="radiogroup"
+        ref={checkboxRef}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+      >
         {question.options.map((option, index) => (
           <div
             key={option}
@@ -87,9 +87,7 @@ const CheckboxInput = ({
               <span className="radio-text">{option}</span>
             </label>
             <div
-              className={`checked ${
-                selectedOption === option ? "active" : ""
-              }`}
+              className={`checked ${selectedOption === option ? "active" : ""}`}
             >
               <img src={check} alt="checked" className="radio-checked" />
             </div>

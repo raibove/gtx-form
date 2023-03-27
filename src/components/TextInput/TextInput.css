@@ -1,13 +1,13 @@
-.text-input{
-    margin-top: 32px;
-    color: white;
-    border: none;
-    font-size: 30px;
-    background-color: black;
-    padding: 0px 0px 8px;
+.text-input {
+  margin-top: 32px;
+  color: white;
+  border: none;
+  font-size: 30px;
+  background-color: black;
+  padding: 0px 0px 8px;
 }
 
-.text-input:focus{
-    outline: none;
-    box-shadow: rgb(255, 255, 255) 0px 2px
-  }
+.text-input:focus {
+  outline: none;
+  box-shadow: rgb(255, 255, 255) 0px 2px;
+}

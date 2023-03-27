@@ -26,21 +26,21 @@ const customStyles = {
     border: 0,
     color: "white",
     backgroundColor: "black",
-    "&:hover": { borderColor: "gray"}, // border style on hover
+    "&:hover": { borderColor: "gray" }, // border style on hover
   }),
   singleValue: (styles) => ({
     ...styles,
     color: "white",
-    fontSize: "30px"
+    fontSize: "30px",
   }),
   placeholder: (styles) => ({
     ...styles,
-    fontSize:"30px"
+    fontSize: "30px",
   }),
-  indicatorSeparator: (styles) =>({
+  indicatorSeparator: (styles) => ({
     ...styles,
-    display: 'none'
-  })
+    display: "none",
+  }),
 };
 
 const SelectInput = ({ question, onAnswer, showError, questionText }) => {
@@ -57,10 +57,10 @@ const SelectInput = ({ question, onAnswer, showError, questionText }) => {
           {questionText} {question.isRequired && <span>*</span>}
         </label>
       </div>
-      <div  className="question-subtitle">
-        <span>{question.subTitle}</span>   
+      <div className="question-subtitle">
+        <span>{question.subTitle}</span>
       </div>
-      <div style={{marginTop:'32px'}}>
+      <div style={{ marginTop: "32px" }}>
         <Select
           isClearable={true}
           options={options}
@@ -74,8 +74,8 @@ const SelectInput = ({ question, onAnswer, showError, questionText }) => {
             borderRadius: 0,
             colors: {
               ...theme.colors,
-              primary25: 'hotpink',
-              primary: 'black',
+              primary25: "hotpink",
+              primary: "black",
             },
           })}
         />

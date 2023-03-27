@@ -20,7 +20,7 @@ const questions = [
     isRequired: true,
   },
   {
-    id:3,
+    id: 3,
     type: "select",
     text: "What industry is your company in?",
     isRequired: true,
@@ -31,9 +31,16 @@ const questions = [
     type: "checkbox",
     text: "Your role in your company?",
     isRequired: true,
-    subTitle: "We want to understand how you spend your time right now. {\n} [ 🔴DEVELOPER NOTICE: Options in the questions ahead depend on this question's response/s. ]",
-    options: ["Founder or CXO", "Product Team", "Marketing Team", "VC", "Other"]
-  }
+    subTitle:
+      "We want to understand how you spend your time right now. {\n} [ 🔴DEVELOPER NOTICE: Options in the questions ahead depend on this question's response/s. ]",
+    options: [
+      "Founder or CXO",
+      "Product Team",
+      "Marketing Team",
+      "VC",
+      "Other",
+    ],
+  },
 ];
 
 const initialAnswersState = questions.map((question) => ({
@@ -47,8 +54,7 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const handleAnswer = (answer, questionId) => {
-    if(answer===" ")
-      return;
+    if (answer === " ") return;
 
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
@@ -56,16 +62,13 @@ function App() {
       return newAnswers;
     });
 
-    if(showError===true){
-      setShowError(false)
+    if (showError === true) {
+      setShowError(false);
     }
   };
 
   const getCurrentQuestion = (question) => {
-    const questionText = question.text.replace(
-      "{name}",
-      answers[0].value
-    );
+    const questionText = question.text.replace("{name}", answers[0].value);
     switch (question.type) {
       case "text":
         return (
@@ -78,36 +81,40 @@ function App() {
           />
         );
       case "select":
-          return(
-            <SelectInput 
-              key={question.id}
-              question={question}
-              onAnswer={handleAnswer}
-              showError={showError}
-              questionText={questionText}
-            />
-          )
+        return (
+          <SelectInput
+            key={question.id}
+            question={question}
+            onAnswer={handleAnswer}
+            showError={showError}
+            questionText={questionText}
+          />
+        );
       case "checkbox":
-            return(
-              <CheckboxInput 
-                key={question.id}
-                question={question}
-                onAnswer={handleAnswer}
-                showError={showError}
-                questionText={questionText}
-              />
-            )
+        return (
+          <CheckboxInput
+            key={question.id}
+            question={question}
+            onAnswer={handleAnswer}
+            showError={showError}
+            questionText={questionText}
+          />
+        );
       default:
         return null;
     }
   };
 
-  const handleShowError = (newError)=>{
-    setShowError(newError)
-  }
+  const handleShowError = (newError) => {
+    setShowError(newError);
+  };
 
   return (
-    <FullScroll answers={answers} questions={questions} handleShowError={handleShowError}>
+    <FullScroll
+      answers={answers}
+      questions={questions}
+      handleShowError={handleShowError}
+    >
       <div>
         <Terms />
       </div>
