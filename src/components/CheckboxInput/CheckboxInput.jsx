@@ -26,15 +26,18 @@ const CheckboxInput = ({
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionChange = (option) => {
+    onAnswer(option, question.id)
     setSelectedOption(option);
   };
 
   const handleKeyDown = (event) => {
-    const key = event.key.toUpperCase().charCodeAt(0);
-    const index = key - 65
-    
-    if (index<question.options.length) {
-      setSelectedOption(question.options[index]);
+    if(event.key.length === 1 && /[a-dA-D]/.test(event.key)){
+      const key = event.key.toUpperCase().charCodeAt(0);
+      const index = key - 65
+      if (index<question.options.length) {
+        onAnswer(question.options[index], question.id)
+        setSelectedOption(question.options[index]);
+      }
     }
   };
 
