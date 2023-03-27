@@ -1,5 +1,6 @@
 import { useState } from "react";
 import rightArrow from "../../assets/right-arrow.svg";
+import check from "../../assets/check.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./CheckboxInput.css"
@@ -7,9 +8,8 @@ import "./CheckboxInput.css"
 const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleOptionChange = (event) => {
-    console.log(event)
-    setSelectedOption(event.target.value);
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
   };
 
   
@@ -30,14 +30,17 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
         </div>
         <div className="radio-group" role="radiogroup">
         {question.options.map((option, index) => (
-        <div key={option.value} className='radio-button'  onChange={handleOptionChange} >
+        <div key={option} className='radio-button' onClick={()=>handleOptionChange(option)} >
             <div className="key-hint-container">
                 <div className={`key-hint ${selectedOption === option ? 'active' : ''}`}>{String.fromCharCode(65 + index)}</div>
             </div>
-            <label key={option.value} className={` ${selectedOption === option ? 'active' : ''}`}>
+            <label key={option} className={`radio-label ${selectedOption === option ? 'active' : ''}`}>
                 <input type="radio" name="radioGroup" value={option} checked={selectedOption === option}/>
                 <span className="radio-text">{option}</span>
             </label>
+            <div className={`checked ${selectedOption === option ? 'active' : ''}`}>
+                <img src={check} alt="checked" className="radio-checked"/>
+            </div>
         </div>
       ))}
         </div>
