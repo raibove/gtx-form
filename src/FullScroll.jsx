@@ -103,19 +103,77 @@ function FullScroll(props) {
   }, []);
 
   const containerStyle = {
-    height: `${100 * pages.length}vh`,
     transform: `translateY(-${currentPageIndex * (100 / pages.length)}%)`,
     scrollSnapType: "y mandatory",
     overflowY: "scroll",
     scrollBehavior: "smooth",
   };
 
+  const updateNextPage = ()=>{
+    setCurrentPageIndex((prevPageIndex) => handleNextQuestion(prevPageIndex));
+  }
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      setCurrentPageIndex((prevPageIndex) => handleNextQuestion(prevPageIndex));
+      updateNextPage();
     }
   };
+
+  //   const childrenWithProps = ()=> {return React.Children.map(props.children, (child) => {
+  //     // Checking isValidElement is the safe way and avoids a
+  //     // typescript error too.
+  //     if (React.isValidElement(child)) {
+  //       const clonedChild = React.cloneElement(child, {
+  //         children: {
+  //           ...child.props.children,
+  //           handleNextQuestion
+  //         }
+  //       });
+
+  //       // console.log(`Child props:`, child.props);
+  //       // console.log(`Cloned child props: `, clonedChild.props);
+  //       return clonedChild;
+  //     }
+  //     return child;
+  //   });
+  // }
+
+  // const pages1 = React.Children.toArray(childrenw);
+
+  function addPropsToReactElement(element) {
+    if (React.isValidElement(element)) {
+      // console.log(element.props.children)
+      // console.log(element.props.children.props)
+      if (JSON.stringify(element.props.children.props) === "{}") {
+        let clonedChild = React.cloneElement(element, {
+          updateNextPage,
+        });
+        return clonedChild;
+      }
+      let clonedChildP = React.cloneElement(element, {
+        ...element.props,
+        children: {
+          ...element.props.children,
+          props: {
+            ...element.props.children.props,
+            updateNextPage,
+          },
+        },
+      });
+      return clonedChildP;
+    }
+    return element;
+  }
+
+  function addPropsToChildren(children) {
+    if (!Array.isArray(children)) {
+      return addPropsToReactElement(children);
+    }
+    return children.map((childElement) =>
+      addPropsToReactElement(childElement)
+    );
+  }
 
   return (
     <div
@@ -127,7 +185,7 @@ function FullScroll(props) {
       <div className="full-scroll-content" style={containerStyle}>
         {pages.map((page, index) => (
           <FullScrollPage key={index} logo={gxtLogo}>
-            {page}
+            {addPropsToChildren(page)}
           </FullScrollPage>
         ))}
       </div>

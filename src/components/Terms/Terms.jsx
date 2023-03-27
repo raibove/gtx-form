@@ -1,7 +1,7 @@
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import "./Terms.css";
 
-const Terms = () => {
+const Terms = ({handleNextQuestion, currentPageIndex}) => {
   return (
     <div className="terms-container">
       <span className="terms-title">Up-skilling requires time commitment</span>
@@ -16,7 +16,7 @@ const Terms = () => {
         <br />
         <span>- 15 hours/week for the last 3 weeks</span>
       </p>
-      <ButtonContainer buttonText="I agree" showPressEnter={true} />
+      <ButtonContainer buttonText="I agree" showPressEnter={true} handleButtonClick={()=>{handleNextQuestion(currentPageIndex)}}/>
     </div>
   );
 };

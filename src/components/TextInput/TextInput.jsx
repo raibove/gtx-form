@@ -5,7 +5,7 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const TextInput = ({ question, onAnswer, showError, questionText }) => {
+const TextInput = ({ question, onAnswer, showError, questionText, updateNextPage }) => {
   const inputRef = useRef(null);
   const isInViewport1 = useIsInViewport(inputRef);
 
@@ -38,7 +38,7 @@ const TextInput = ({ question, onAnswer, showError, questionText }) => {
       <div>{showError && <ErrorContainer />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} />
+          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>
         )}
       </div>
     </div>

@@ -126,14 +126,6 @@ function App() {
           </div>
         );
       })}
-      <div>
-        <h1>Page 2</h1>
-        <p>This is the content for page 2</p>
-      </div>
-      <div>
-        <h1>Page 3</h1>
-        <p>This is the content for page 3</p>
-      </div>
     </FullScroll>
   );
 }

@@ -6,7 +6,7 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./CheckboxInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
+const CheckboxInput = ({ question, onAnswer, showError, questionText, handleNextQuestion, currentPageIndex }) => {
   const checkboxRef = useRef(null);
   const isInViewport1 = useIsInViewport(checkboxRef);
 
@@ -35,6 +35,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
       }
     }
   };
+
 
   return (
     <div>
@@ -82,7 +83,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
                 type="radio"
                 name="radioGroup"
                 value={option}
-                checked={selectedOption === option}
+                // checked={selectedOption === option}
               />
               <span className="radio-text">{option}</span>
             </label>
@@ -97,7 +98,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText }) => {
       <div>{showError && <ErrorContainer />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} />
+          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={()=>{handleNextQuestion(currentPageIndex)}}/>
         )}
       </div>
     </div>
