@@ -13,19 +13,19 @@ const questions = [
     text: "What's is your first name?",
     isRequired: true,
   },
-  // {
-  //   id: 2,
-  //   type: "text",
-  //   text: "and what is your last name, {name}?",
-  //   isRequired: true,
-  // },
-  // {
-  //   id:3,
-  //   type: "select",
-  //   text: "What industry is your company in?",
-  //   isRequired: true,
-  //   subTitle: "We will personalize your learning experience accordingly",
-  // },
+  {
+    id: 2,
+    type: "text",
+    text: "and what is your last name, {name}?",
+    isRequired: true,
+  },
+  {
+    id:3,
+    type: "select",
+    text: "What industry is your company in?",
+    isRequired: true,
+    subTitle: "We will personalize your learning experience accordingly",
+  },
   {
     id: 4,
     type: "checkbox",
