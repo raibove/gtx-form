@@ -4,6 +4,7 @@ import TextInput from "./components/TextInput/TextInput";
 import FullScroll from "./FullScroll";
 import "./App.css";
 import SelectInput from "./components/SelectInput/SelectInput";
+import CheckboxInput from "./components/CheckboxInput/CheckboxInput";
 
 const questions = [
   {
@@ -12,18 +13,26 @@ const questions = [
     text: "What's is your first name?",
     isRequired: true,
   },
+  // {
+  //   id: 2,
+  //   type: "text",
+  //   text: "and what is your last name, {name}?",
+  //   isRequired: true,
+  // },
+  // {
+  //   id:3,
+  //   type: "select",
+  //   text: "What industry is your company in?",
+  //   isRequired: true,
+  //   subTitle: "We will personalize your learning experience accordingly",
+  // },
   {
-    id: 2,
-    type: "text",
-    text: "and what is your last name, {name}?",
+    id: 4,
+    type: "checkbox",
+    text: "Your role in your company?",
     isRequired: true,
-  },
-  {
-    id:3,
-    type: "select",
-    text: "What industry is your company in?",
-    isRequired: true,
-    subTitle: "We will personalize your learning experience accordingly",
+    subTitle: "We want to understand how you spend your time right now. {\n} [ 🔴DEVELOPER NOTICE: Options in the questions ahead depend on this question's response/s. ]",
+    options: ["Founder or CXO", "Product Team", "Marketing Team", "VC", "Other"]
   }
 ];
 
@@ -78,6 +87,16 @@ function App() {
               questionText={questionText}
             />
           )
+      case "checkbox":
+            return(
+              <CheckboxInput 
+                key={question.id}
+                question={question}
+                onAnswer={handleAnswer}
+                showError={showError}
+                questionText={questionText}
+              />
+            )
       default:
         return null;
     }

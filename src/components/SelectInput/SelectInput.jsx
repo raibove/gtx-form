@@ -2,7 +2,6 @@ import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import Select from "react-select";
-import { useEffect, useState } from "react";
 import { getData } from "./data";
 
 const customStyles = {
@@ -24,11 +23,10 @@ const customStyles = {
     ...base,
     boxShadow: "rgb(255, 255, 255) 0px 2px",
     minWidth: "242px",
-    zIndex: 9999,
     border: 0,
     color: "white",
     backgroundColor: "black",
-    "&:hover": { borderColor: "gray" }, // border style on hover
+    "&:hover": { borderColor: "gray"}, // border style on hover
   }),
   singleValue: (styles) => ({
     ...styles,
@@ -59,6 +57,9 @@ const SelectInput = ({ question, onAnswer, showError, questionText }) => {
           {questionText} {question.isRequired && <span>*</span>}
         </label>
       </div>
+      <div  className="question-subtitle">
+        <span>{question.subTitle}</span>   
+      </div>
       <div style={{marginTop:'32px'}}>
         <Select
           isClearable={true}
@@ -68,6 +69,15 @@ const SelectInput = ({ question, onAnswer, showError, questionText }) => {
           }}
           styles={customStyles}
           captureMenuScroll={true}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: 'hotpink',
+              primary: 'black',
+            },
+          })}
         />
       </div>
       <div>{showError && <ErrorContainer />}</div>
