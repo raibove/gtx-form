@@ -3,16 +3,16 @@ import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
-import useIsInViewport from "./useIsInViewport"
+import useIsInViewport from "../../hooks/useIsInViewport"
 
 const TextInput = ({ question, onAnswer, showError, questionText }) => {
-  const iref = useRef(null)
-  const isInViewport1 = useIsInViewport(iref);
+  const inputRef = useRef(null)
+  const isInViewport1 = useIsInViewport(inputRef);
   
   useEffect(() => {
     // 👇️ listen for changes
     if(isInViewport1)
-      iref.current.focus()
+      inputRef.current.focus()
   }, [isInViewport1]);
 
   return (
@@ -28,7 +28,7 @@ const TextInput = ({ question, onAnswer, showError, questionText }) => {
       </div>
       <div>
         <input
-          ref={iref}
+          ref={inputRef}
           className="text-input"
           type="text"
           id={question.id}
