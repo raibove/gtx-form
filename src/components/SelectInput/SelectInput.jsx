@@ -43,7 +43,7 @@ const customStyles = {
   }),
 };
 
-const SelectInput = ({ question, onAnswer, showError, questionText, handleNextQuestion, currentPageIndex }) => {
+const SelectInput = ({ question, onAnswer, showError, questionText, updateNextPage}) => {
   const options = getData();
 
   return (
@@ -83,7 +83,7 @@ const SelectInput = ({ question, onAnswer, showError, questionText, handleNextQu
       <div>{showError && <ErrorContainer />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={()=>{handleNextQuestion(currentPageIndex)}}/>
+          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>
         )}
       </div>
     </div>

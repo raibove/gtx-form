@@ -6,7 +6,7 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./CheckboxInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const CheckboxInput = ({ question, onAnswer, showError, questionText, handleNextQuestion, currentPageIndex }) => {
+const CheckboxInput = ({ question, onAnswer, showError, questionText, updateNextPage}) => {
   const checkboxRef = useRef(null);
   const isInViewport1 = useIsInViewport(checkboxRef);
 
@@ -98,7 +98,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText, handleNext
       <div>{showError && <ErrorContainer />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={()=>{handleNextQuestion(currentPageIndex)}}/>
+          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>
         )}
       </div>
     </div>
