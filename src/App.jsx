@@ -4,7 +4,7 @@ import TextInput from "./components/TextInput/TextInput";
 import FullScroll from "./FullScroll";
 import "./App.css";
 import SelectInput from "./components/SelectInput/SelectInput";
-import CheckboxInput from "./components/CheckboxInput/CheckboxInput";
+import RadioInput from "./components/RadioInput/RadioInput";
 import Loader from "./components/Loader/Loader";
 
 const questions = [
@@ -29,7 +29,7 @@ const questions = [
   },
   {
     id: 4,
-    type: "checkbox",
+    type: "radio",
     text: "Your role in your company?",
     isRequired: true,
     subTitle:
@@ -44,7 +44,7 @@ const questions = [
   },
   {
     id: 5,
-    type: "checkbox",
+    type: "radio",
     text: "{name}, what's your professional goal for the next 12 months?",
     isRequired: true,
     options: [
@@ -60,7 +60,7 @@ const questions = [
   },
   {
     id: 6,
-    type: "checkbox",
+    type: "radio",
     text: "{name}, what's your professional goal for the next 12 months?",
     isRequired: true,
     options: [
@@ -92,7 +92,7 @@ function App() {
 
   const updateCurrentQuestionId = (questionId) => {
     setQuestionNumber((prevQuestionNumber) => {
-      updateCurrentQuestionNumber(prevQuestionNumber, questionId);
+      return updateCurrentQuestionNumber(prevQuestionNumber, questionId);
     });
 
     setCurrentQuestionId(questionId);
@@ -159,9 +159,9 @@ function App() {
             questionNumber={questionNumber}
           />
         );
-      case "checkbox":
+      case "radio":
         return (
-          <CheckboxInput
+          <RadioInput
             key={question.id}
             question={question}
             onAnswer={handleAnswer}

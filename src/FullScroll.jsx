@@ -138,7 +138,7 @@ function FullScroll(props) {
   return (
     <div
       className="full-scroll-container"
-      tabIndex="0"
+      tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       <div className="full-scroll-content" style={containerStyle}>

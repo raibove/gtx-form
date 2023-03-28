@@ -3,10 +3,10 @@ import rightArrow from "../../assets/right-arrow.svg";
 import check from "../../assets/check.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
-import "./CheckboxInput.css";
+import "./RadioInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const CheckboxInput = ({
+const RadioInput = ({
   question,
   onAnswer,
   showError,
@@ -15,14 +15,14 @@ const CheckboxInput = ({
   questionNumber,
   updateNextPage,
 }) => {
-  const checkboxRef = useRef(null);
-  const isInViewport1 = useIsInViewport(checkboxRef);
+  const radioRef = useRef(null);
+  const isInViewport1 = useIsInViewport(radioRef);
 
   useEffect(() => {
     // 👇️ listen for changes
 
     if (isInViewport1) {
-      checkboxRef.current.focus();
+      radioRef.current.focus();
       updateCurrentQuestionId(question.id);
     }
   }, [isInViewport1]);
@@ -62,7 +62,7 @@ const CheckboxInput = ({
       <div
         className="radio-group"
         role="radiogroup"
-        ref={checkboxRef}
+        ref={radioRef}
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
@@ -117,4 +117,4 @@ const CheckboxInput = ({
   );
 };
 
-export default CheckboxInput;
+export default RadioInput;

@@ -4,7 +4,7 @@ import "./Loader.css"
 const Loader = ()=>{
     return <div className="loader-container">
         <img src={gtxLogo} alt="gtx-logo" className="loader-logo"/>
-        <div class="loader-line"></div>
+        <div className="loader-line"></div>
     </div>
 }
 
