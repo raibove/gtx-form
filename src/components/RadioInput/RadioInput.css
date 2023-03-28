@@ -11,6 +11,10 @@
   margin-top: 32px;
 }
 
+.radio-group:focus{
+  outline: none;
+}
+
 .radio-button {
   margin-bottom: 8px;
   margin-right: 0px;

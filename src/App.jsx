@@ -5,6 +5,7 @@ import FullScroll from "./FullScroll";
 import "./App.css";
 import SelectInput from "./components/SelectInput/SelectInput";
 import RadioInput from "./components/RadioInput/RadioInput";
+import RadioGroupInput from "./components/RadioInput/RadioGroupInput";
 import Loader from "./components/Loader/Loader";
 
 const questions = [
@@ -44,7 +45,7 @@ const questions = [
   },
   {
     id: 5,
-    type: "radio",
+    type: "radio-group",
     text: "{name}, what's your professional goal for the next 12 months?",
     isRequired: true,
     options: [
@@ -57,10 +58,11 @@ const questions = [
     condition: (answers) =>
       answers.find((a) => a.id === 4) &&
       answers.find((a) => a.id === 4).value !== "Founder or CXO",
+    maxSelect: 2
   },
   {
     id: 6,
-    type: "radio",
+    type: "radio-group",
     text: "{name}, what's your professional goal for the next 12 months?",
     isRequired: true,
     options: [
@@ -71,6 +73,7 @@ const questions = [
     condition: (answers) =>
       answers.find((a) => a.id === 4) &&
       answers.find((a) => a.id === 4).value === "Founder or CXO",
+    maxSelect: 2
   },
 ];
 
@@ -171,6 +174,19 @@ function App() {
             questionNumber={questionNumber}
           />
         );
+        case "radio-group":
+          return (
+            <RadioGroupInput
+              key={question.id}
+              question={question}
+              onAnswer={handleAnswer}
+              showError={showError}
+              questionText={questionText}
+              updateCurrentQuestionId={updateCurrentQuestionId}
+              questionNumber={questionNumber}
+              maxSelections={question.maxSelect}
+            />
+          );
       default:
         return null;
     }

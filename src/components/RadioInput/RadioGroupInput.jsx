@@ -6,7 +6,7 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./RadioInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const RadioInput = ({
+const RadioGroupInput = ({
   question,
   onAnswer,
   showError,
@@ -14,10 +14,11 @@ const RadioInput = ({
   updateCurrentQuestionId,
   questionNumber,
   updateNextPage,
+  maxSelections,
 }) => {
   const radioRef = useRef(null);
   const isInViewport1 = useIsInViewport(radioRef);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   useEffect(() => {
     // 👇️ listen for changes
@@ -28,10 +29,21 @@ const RadioInput = ({
     }
   }, [isInViewport1]);
 
-
   const handleOptionChange = (option) => {
-    onAnswer(option, question.id);
-    setSelectedOption(option);
+    let newSelectedOptions;
+
+    if (selectedOptions.includes(option)) {
+      newSelectedOptions = selectedOptions.filter((o) => o !== option);
+    } else {
+      if (selectedOptions.length < maxSelections) {
+        newSelectedOptions = [...selectedOptions, option];
+      } else {
+        return;
+      }
+    }
+    console.log(newSelectedOptions);
+    onAnswer(newSelectedOptions, question.id);
+    setSelectedOptions(newSelectedOptions);
   };
 
   const handleKeyDown = (event) => {
@@ -39,8 +51,7 @@ const RadioInput = ({
       const key = event.key.toUpperCase().charCodeAt(0);
       const index = key - 65;
       if (index < question.options.length) {
-        onAnswer(question.options[index], question.id);
-        setSelectedOption(question.options[index]);
+        handleOptionChange(question.options[index]);
       }
     }
   };
@@ -75,7 +86,7 @@ const RadioInput = ({
             <div className="key-hint-container">
               <div
                 className={`key-hint ${
-                  selectedOption === option ? "active" : ""
+                  selectedOptions.includes(option) ? "active" : ""
                 }`}
               >
                 {String.fromCharCode(65 + index)}
@@ -84,18 +95,16 @@ const RadioInput = ({
             <label
               key={option}
               className={`radio-label ${
-                selectedOption === option ? "active" : ""
+                selectedOptions.includes(option) ? "active" : ""
               }`}
             >
-              <input
-                type="radio"
-                name="radioGroup"
-                value={option}
-              />
+              <input type="radio" name="radioGroup" value={option} />
               <span className="radio-text">{option}</span>
             </label>
             <div
-              className={`checked ${selectedOption === option ? "active" : ""}`}
+              className={`checked ${
+                selectedOptions.includes(option) ? "active" : ""
+              }`}
             >
               <img src={check} alt="checked" className="radio-checked" />
             </div>
@@ -116,4 +125,4 @@ const RadioInput = ({
   );
 };
 
-export default RadioInput;
+export default RadioGroupInput;
