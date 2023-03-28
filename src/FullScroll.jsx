@@ -19,7 +19,6 @@ function FullScroll(props) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
   const SCROLL_THRESHOLD = 30;
-  const containerRef = useRef(null);
 
   const isQuestion = (pageIndex) => {
     if (pageIndex === 0) {
@@ -124,7 +123,6 @@ function FullScroll(props) {
         updateNextPage,
       });
 
-      console.log(clonedChildP);
       return clonedChildP;
     }
     return element;
@@ -140,7 +138,6 @@ function FullScroll(props) {
   return (
     <div
       className="full-scroll-container"
-      ref={containerRef}
       tabIndex="0"
       onKeyDown={handleKeyDown}
     >

@@ -1,9 +1,22 @@
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import "./Terms.css";
+import useIsInViewport from "../../hooks/useIsInViewport";
+import { useRef, useEffect } from "react";
 
-const Terms = ({updateNextPage}) => {
+const Terms = ({ updateNextPage }) => {
+  const termsRef = useRef(null);
+  const isInViewport1 = useIsInViewport(termsRef);
+
+  useEffect(() => {
+    // 👇️ listen for changes
+
+    if (isInViewport1) {
+      termsRef.current.focus();
+    }
+  }, [isInViewport1]);
+
   return (
-    <div className="terms-container">
+    <div className="terms-container" ref={termsRef} tabIndex="0">
       <span className="terms-title">Up-skilling requires time commitment</span>
       <p className="terms-description">
         The GrowthX experience is designed by keeping in mind the working hours
@@ -16,7 +29,11 @@ const Terms = ({updateNextPage}) => {
         <br />
         <span>- 15 hours/week for the last 3 weeks</span>
       </p>
-      <ButtonContainer buttonText="I agree" showPressEnter={true} handleButtonClick={updateNextPage}/>
+      <ButtonContainer
+        buttonText="I agree"
+        showPressEnter={true}
+        handleButtonClick={updateNextPage}
+      />
     </div>
   );
 };
