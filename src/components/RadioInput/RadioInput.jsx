@@ -7,6 +7,7 @@ import "./RadioInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
 const RadioInput = ({
+  error,
   question,
   onAnswer,
   showError,
@@ -97,7 +98,7 @@ const RadioInput = ({
           </div>
         ))}
       </div>
-      <div>{showError && <ErrorContainer />}</div>
+      <div>{showError && <ErrorContainer error={error}/>}</div>
       <div>
         {!showError && (
           <ButtonContainer

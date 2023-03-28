@@ -7,6 +7,7 @@ import "./RadioInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
 const RadioGroupInput = ({
+  error,
   question,
   onAnswer,
   showError,
@@ -118,7 +119,7 @@ const RadioGroupInput = ({
           </div>
         ))}
       </div>
-      <div>{showError && <ErrorContainer />}</div>
+      <div>{showError && <ErrorContainer error={error}/>}</div>
       <div>
         {!showError && (
           <ButtonContainer

@@ -3,6 +3,10 @@
   max-width: 720px;
 }
 
+.terms-container:focus{
+  outline: none;
+}
+
 .terms-title {
   font-weight: unset;
   font-size: 24px;

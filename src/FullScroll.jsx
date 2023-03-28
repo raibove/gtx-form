@@ -14,7 +14,7 @@ const FullScrollPage = (props) => {
 };
 
 function FullScroll(props) {
-  const { questions, answers, handleShowError, currentQuestionId } = props;
+  const { answers, handleShowError, isRequiredQuestionAnswered } = props;
 
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
@@ -27,15 +27,7 @@ function FullScroll(props) {
     return true;
   };
 
-  const isRequiredQuestionAnswered = () => {
-    if (questions.find((q) => q.id === currentQuestionId).isRequired !== true)
-      return true;
 
-    if (answers.find((a) => a.id === currentQuestionId) != undefined) {
-      return true;
-    }
-    return false;
-  };
 
   const handleNextQuestion = (pageIndex) => {
     // dont scroll if required not filled

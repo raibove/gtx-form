@@ -58,7 +58,7 @@ const questions = [
     condition: (answers) =>
       answers.find((a) => a.id === 4) &&
       answers.find((a) => a.id === 4).value !== "Founder or CXO",
-    maxSelect: 2
+    maxSelect: 2,
   },
   {
     id: 6,
@@ -73,13 +73,14 @@ const questions = [
     condition: (answers) =>
       answers.find((a) => a.id === 4) &&
       answers.find((a) => a.id === 4).value === "Founder or CXO",
-    maxSelect: 2
+    maxSelect: 2,
   },
 ];
 
 function App() {
   const [answers, setAnswers] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [error, setError] = useState("Please fill this in");
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -140,6 +141,7 @@ function App() {
       case "text":
         return (
           <TextInput
+            error={error}
             answers={answers}
             key={question.id}
             question={question}
@@ -153,6 +155,7 @@ function App() {
       case "select":
         return (
           <SelectInput
+            error={error}
             key={question.id}
             question={question}
             onAnswer={handleAnswer}
@@ -165,6 +168,7 @@ function App() {
       case "radio":
         return (
           <RadioInput
+            error={error}
             key={question.id}
             question={question}
             onAnswer={handleAnswer}
@@ -174,44 +178,77 @@ function App() {
             questionNumber={questionNumber}
           />
         );
-        case "radio-group":
-          return (
-            <RadioGroupInput
-              key={question.id}
-              question={question}
-              onAnswer={handleAnswer}
-              showError={showError}
-              questionText={questionText}
-              updateCurrentQuestionId={updateCurrentQuestionId}
-              questionNumber={questionNumber}
-              maxSelections={question.maxSelect}
-            />
-          );
+      case "radio-group":
+        return (
+          <RadioGroupInput
+            error={error}
+            key={question.id}
+            question={question}
+            onAnswer={handleAnswer}
+            showError={showError}
+            questionText={questionText}
+            updateCurrentQuestionId={updateCurrentQuestionId}
+            questionNumber={questionNumber}
+            maxSelections={question.maxSelect}
+          />
+        );
       default:
         return null;
     }
   };
 
   useEffect(() => {
-      setLoading(false);
+    setLoading(false);
   }, []);
-
 
   const handleShowError = (newError) => {
     setShowError(newError);
   };
 
-  if(loading){
-    return <Loader />
+  const isRequiredQuestionAnswered = () => {
+    let currentQuestion = questions.find((q) => q.id === currentQuestionId);
+    let currentAnswer = answers.find((a) => a.id === currentQuestionId);
+    if (currentQuestion.isRequired !== true) return true;
+
+    if (currentAnswer) {
+      if (currentQuestion.type === "radio-group") {
+        if (currentAnswer.value.length === 0) {
+          setError("Oops! Please make a selection");
+          return false;
+        } else if (currentAnswer.value.length < currentQuestion.maxSelect) {
+          setError("Please make more choices");
+          return false;
+        }
+      } else if (currentAnswer.value.length === 0) {
+        if (currentQuestion.type === "text") {
+          setError("Please fill this in");
+        }else{
+          setError("Please make a selection")
+        }
+        return false;
+      }
+      
+      return true;
+    }
+
+    if (currentQuestion.type === "text") {
+      setError("Please fill this in");
+    }else{
+      setError("Please make a selection")
+    }
+    return false;
+  };
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (
     <>
       <FullScroll
         answers={answers}
-        questions={questions}
+        isRequiredQuestionAnswered={isRequiredQuestionAnswered}
         handleShowError={handleShowError}
-        currentQuestionId={currentQuestionId}
       >
         <Terms />
         {questions.map((question) => {

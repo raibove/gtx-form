@@ -46,7 +46,7 @@ const customStyles = {
   }),
 };
 
-const SelectInput = ({ question, onAnswer, showError, questionText, updateCurrentQuestionId, questionNumber, updateNextPage}) => {
+const SelectInput = ({ error, question, onAnswer, showError, questionText, updateCurrentQuestionId, questionNumber, updateNextPage}) => {
   const options = getData();
 
   const inputRef = useRef(null);
@@ -97,7 +97,7 @@ const SelectInput = ({ question, onAnswer, showError, questionText, updateCurren
           })}
         />
       </div>
-      <div>{showError && <ErrorContainer />}</div>
+      <div>{showError && <ErrorContainer error={error}/>}</div>
       <div>
         {!showError && (
           <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>

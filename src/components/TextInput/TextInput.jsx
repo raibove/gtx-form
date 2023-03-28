@@ -6,6 +6,7 @@ import "./TextInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
 const TextInput = ({
+  error,
   answers,
   question,
   onAnswer,
@@ -52,7 +53,7 @@ const TextInput = ({
           }
         />
       </div>
-      <div>{showError && <ErrorContainer />}</div>
+      <div>{showError && <ErrorContainer error={error}/>}</div>
       <div>
         {!showError && (
           <ButtonContainer
