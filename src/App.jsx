@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Terms from "./components/Terms/Terms";
 import TextInput from "./components/TextInput/TextInput";
 import FullScroll from "./FullScroll";
@@ -41,6 +41,30 @@ const questions = [
       "Other",
     ],
   },
+  {
+    id: 5,
+    type: "checkbox",
+    text: "{name}, what's your professional goal for the next 12 months?",
+    isRequired: true,
+    options: [
+      "Get hired",
+      "Get promoted",
+      "Connect with like minded people",
+      "Structured approach to growth",
+      "Build a growth team",
+    ],
+  },
+  {
+    id: 6,
+    type: "checkbox",
+    text: "{name}, what's your professional goal for the next 12 months?",
+    isRequired: true,
+    options: [
+      "Structured approach to growth",
+      "Build a growth team",
+      "Connect with like minded people",
+    ],
+  },
 ];
 
 const initialAnswersState = questions.map((question) => ({
@@ -50,15 +74,29 @@ const initialAnswersState = questions.map((question) => ({
 }));
 
 function App() {
-  const [answers, setAnswers] = useState(initialAnswersState);
+  const [answers, setAnswers] = useState([{id:100, value:"test"}]);
   const [showError, setShowError] = useState(false);
+  const [currentQuestionId, setCurrentQuestionId] = useState(1);
+
+  const updateCurrentQustionId = (questionId) => {
+    setCurrentQuestionId(questionId);
+  };
 
   const handleAnswer = (answer, questionId) => {
     if (answer === " ") return;
 
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
-      newAnswers[questionId - 1].value = answer;
+      const existingAnswer = newAnswers.find((a) => a.id === questionId);
+      if (existingAnswer) {
+        existingAnswer.value = answer;
+      } else {
+        newAnswers.push({
+          id: questionId,
+          type: questions[questionId].type,
+          value: answer,
+        });
+      }
       return newAnswers;
     });
 
@@ -68,16 +106,23 @@ function App() {
   };
 
   const getCurrentQuestion = (question) => {
-    const questionText = question.text.replace("{name}", answers[0].value);
+    let name = "";
+    if (answers.find((a) => a.id === 1) !== undefined) {
+      name = answers.find((a) => a.id === 1).value;
+    }
+
+    const questionText = question.text.replace("{name}", name);
     switch (question.type) {
       case "text":
         return (
           <TextInput
+            answers={answers}
             key={question.id}
             question={question}
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
+            updateCurrentQustionId={updateCurrentQustionId}
           />
         );
       case "select":
@@ -88,6 +133,7 @@ function App() {
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
+            updateCurrentQustionId={updateCurrentQustionId}
           />
         );
       case "checkbox":
@@ -98,6 +144,7 @@ function App() {
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
+            updateCurrentQustionId={updateCurrentQustionId}
           />
         );
       default:
@@ -111,9 +158,10 @@ function App() {
 
   return (
     <FullScroll
-      answers={answers}
+    answers={answers}
       questions={questions}
       handleShowError={handleShowError}
+      currentQuestionId={currentQuestionId}
     >
       <div>
         <Terms />

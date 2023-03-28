@@ -14,7 +14,7 @@ const FullScrollPage = (props) => {
 };
 
 function FullScroll(props) {
-  const { questions, answers, handleShowError } = props;
+  const { questions, answers, handleShowError, currentQuestionId } = props;
 
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
@@ -28,11 +28,11 @@ function FullScroll(props) {
     return true;
   };
 
-  const isRequiredQuestionAnswered = (pageIndex) => {
-    if (
-      questions[pageIndex - 1].isRequired === true &&
-      answers[pageIndex - 1].value === null
-    ) {
+  const isRequiredQuestionAnswered = () => {
+    if (questions.find((q) => q.id === currentQuestionId).isRequired !== true)
+      return true;
+
+    if (answers.find((a) => a.id === currentQuestionId) != undefined) {
       return true;
     }
     return false;
@@ -40,7 +40,7 @@ function FullScroll(props) {
 
   const handleNextQuestion = (pageIndex) => {
     // dont scroll if required not filled
-    if (isQuestion(pageIndex) && isRequiredQuestionAnswered(pageIndex)) {
+    if (isQuestion(pageIndex) && !isRequiredQuestionAnswered()) {
       handleShowError(true);
       return pageIndex;
     }
@@ -60,7 +60,7 @@ function FullScroll(props) {
 
   useEffect(() => {
     // for enter detect
-    containerRef.current.focus();
+    // containerRef.current.focus();
 
     let isScrolling = false;
     const handleScroll = (event) => {
@@ -100,7 +100,7 @@ function FullScroll(props) {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, []);
+  }, [answers]);
 
   const containerStyle = {
     transform: `translateY(-${currentPageIndex * (100 / pages.length)}%)`,
@@ -129,14 +129,12 @@ function FullScroll(props) {
             ...element.props.children,
             props: {
               ...element.props.children.props,
-
               updateNextPage,
             },
           },
         });
         return clonedChildP;
       }
-    
     }
     return element;
   }

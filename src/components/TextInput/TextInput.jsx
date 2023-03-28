@@ -5,13 +5,24 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./TextInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const TextInput = ({ question, onAnswer, showError, questionText, updateNextPage }) => {
+const TextInput = ({
+  answers,
+  question,
+  onAnswer,
+  showError,
+  questionText,
+  updateCurrentQustionId,
+  updateNextPage,
+}) => {
   const inputRef = useRef(null);
   const isInViewport1 = useIsInViewport(inputRef);
 
   useEffect(() => {
     // 👇️ listen for changes
-    if (isInViewport1) inputRef.current.focus();
+    if (isInViewport1) {
+      inputRef.current.focus();
+      updateCurrentQustionId(question.id);
+    }
   }, [isInViewport1]);
 
   return (
@@ -33,12 +44,21 @@ const TextInput = ({ question, onAnswer, showError, questionText, updateNextPage
           id={question.id}
           onChange={(e) => onAnswer(e.target.value, question.id)}
           placeholder="Type your answer here ..."
+          value={
+            answers.find((a) => a.id === question.id) !== undefined
+              ? answers.find((a) => a.id === question.id).value
+              : ""
+          }
         />
       </div>
       <div>{showError && <ErrorContainer />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>
+          <ButtonContainer
+            buttonText="OK"
+            showPressEnter={true}
+            handleButtonClick={updateNextPage}
+          />
         )}
       </div>
     </div>

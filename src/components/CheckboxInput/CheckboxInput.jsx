@@ -6,7 +6,7 @@ import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import "./CheckboxInput.css";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
-const CheckboxInput = ({ question, onAnswer, showError, questionText, updateNextPage}) => {
+const CheckboxInput = ({ question, onAnswer, showError, questionText, updateCurrentQustionId, updateNextPage}) => {
   const checkboxRef = useRef(null);
   const isInViewport1 = useIsInViewport(checkboxRef);
 
@@ -15,6 +15,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText, updateNext
 
     if (isInViewport1) {
       checkboxRef.current.focus();
+      updateCurrentQustionId(question.id)
     }
   }, [isInViewport1]);
 

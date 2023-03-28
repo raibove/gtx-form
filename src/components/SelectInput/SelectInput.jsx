@@ -3,6 +3,9 @@ import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
 import Select from "react-select";
 import { getData } from "./data";
+import { useRef, useEffect } from "react";
+import useIsInViewport from "../../hooks/useIsInViewport";
+
 
 const customStyles = {
   option: (provided, state) => ({
@@ -43,11 +46,24 @@ const customStyles = {
   }),
 };
 
-const SelectInput = ({ question, onAnswer, showError, questionText, updateNextPage}) => {
+const SelectInput = ({ question, onAnswer, showError, questionText, updateCurrentQustionId, updateNextPage}) => {
   const options = getData();
 
+  const inputRef = useRef(null);
+  const isInViewport1 = useIsInViewport(inputRef);
+
+  useEffect(() => {
+    // 👇️ listen for changes
+    if (isInViewport1) {
+      // inputRef.current.focus();
+      updateCurrentQustionId(question.id)
+    }
+  }, [isInViewport1]);
+
   return (
-    <div>
+    <div 
+    ref={inputRef}
+    >
       <div className="question-number-container">
         <span className="question-number">
           {question.id}{" "}
