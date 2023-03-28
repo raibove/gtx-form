@@ -20,7 +20,7 @@ const RadioGroupInput = ({
   const radioRef = useRef(null);
   const isInViewport1 = useIsInViewport(radioRef);
   const [selectedOptions, setSelectedOptions] = useState([]);
- const [disabledOptions, setDisabledOptions] = useState([]);
+  const [disabledOptions, setDisabledOptions] = useState([]);
 
   useEffect(() => {
     // 👇️ listen for changes
@@ -30,7 +30,6 @@ const RadioGroupInput = ({
       updateCurrentQuestionId(question.id);
     }
   }, [isInViewport1]);
-
 
   const handleOptionChange = (option) => {
     if (disabledOptions.includes(option)) return;
@@ -55,7 +54,6 @@ const RadioGroupInput = ({
     setSelectedOptions(newSelectedOptions);
   };
 
-
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
       const key = event.key.toUpperCase().charCodeAt(0);
@@ -65,6 +63,16 @@ const RadioGroupInput = ({
       }
     }
   };
+
+  const getSelectionMessage = ()=>{
+    if(selectedOptions.length===maxSelections)
+      return ""
+    if(selectedOptions.length===0)
+      return `Choose ${maxSelections}`
+
+    let pendingSelection = maxSelections-selectedOptions.length
+    return `Choose ${pendingSelection} more`
+  }
 
   return (
     <div className="question-container">
@@ -87,10 +95,13 @@ const RadioGroupInput = ({
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
+        <span  className="selection-number">{getSelectionMessage()}</span>
         {question.options.map((option, index) => (
           <div
             key={option}
-            className={`radio-button  ${disabledOptions.includes(option) ? "disabled" : ""}`}
+            className={`radio-button  ${
+              disabledOptions.includes(option) ? "disabled" : ""
+            }`}
             onClick={() => handleOptionChange(option)}
           >
             <div className="key-hint-container">
@@ -105,7 +116,9 @@ const RadioGroupInput = ({
             </div>
             <div
               key={option}
-              className={`radio-label  ${disabledOptions.includes(option) ? "disabled" : ""}`}
+              className={`radio-label  ${
+                disabledOptions.includes(option) ? "disabled" : ""
+              }`}
             >
               <span className="radio-text">{option}</span>
             </div>
@@ -119,7 +132,7 @@ const RadioGroupInput = ({
           </div>
         ))}
       </div>
-      <div>{showError && <ErrorContainer error={error}/>}</div>
+      <div>{showError && <ErrorContainer error={error} />}</div>
       <div>
         {!showError && (
           <ButtonContainer

@@ -120,3 +120,15 @@
 .radio-checked {
   width: 16px;
 }
+
+.selection-number{
+  margin: 0px;
+  max-width: 100%;
+  width: inherit;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  margin-bottom: 5px;
+  min-height: 30px;
+}
