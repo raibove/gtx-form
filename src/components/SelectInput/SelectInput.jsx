@@ -35,10 +35,16 @@ const customStyles = {
     ...styles,
     color: "white",
     fontSize: "30px",
+    '@media(max-width: 576px)': {
+      fontSize: "20px",
+    }
   }),
   placeholder: (styles) => ({
     ...styles,
     fontSize: "30px",
+    '@media(max-width: 576px)': {
+      fontSize: "20px",
+    }
   }),
   indicatorSeparator: (styles) => ({
     ...styles,

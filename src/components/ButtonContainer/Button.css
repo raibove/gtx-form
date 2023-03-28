@@ -11,11 +11,17 @@
   font-family: "Questrial", sans-serif;
   cursor: pointer;
   transition-duration: 0.1s;
-  transition-property: background-color, color, border-color, opacity,
-    box-shadow;
+  transition-property: background-color, color, border-color, opacity, box-shadow;
   transition-timing-function: ease-out;
   color: white;
   border-radius: 4px;
   font-size: 20px;
-  line-height: 28px;
+}
+
+@media only screen and (max-width: 576px){
+  .button{
+    min-height: 35px;
+    padding: 4px 14px;
+    font-size: 16px;
+  }
 }

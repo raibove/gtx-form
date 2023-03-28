@@ -132,7 +132,7 @@ function App() {
   const handleAnswer = (answer, questionId) => {
     if (answer===null || answer === " " || answer.length===0){ 
       removeAnswer();
-      // return;
+      return;
     };
 
     setAnswers((prevAnswers) => {
