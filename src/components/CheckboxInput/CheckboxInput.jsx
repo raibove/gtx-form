@@ -27,7 +27,7 @@ const CheckboxInput = ({ question, onAnswer, showError, questionText, updateCurr
   };
 
   const handleKeyDown = (event) => {
-    if (event.key.length === 1 && /[a-dA-D]/.test(event.key)) {
+    if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
       const key = event.key.toUpperCase().charCodeAt(0);
       const index = key - 65;
       if (index < question.options.length) {
