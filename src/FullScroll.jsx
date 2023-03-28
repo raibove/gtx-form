@@ -59,8 +59,6 @@ function FullScroll(props) {
   };
 
   useEffect(() => {
-    // for enter detect
-    // containerRef.current.focus();
 
     let isScrolling = false;
     const handleScroll = (event) => {
@@ -122,19 +120,12 @@ function FullScroll(props) {
 
   function addPropsToReactElement(element) {
     if (React.isValidElement(element)) {
-      if (element.props.children.props !== undefined) {
-        let clonedChildP = React.cloneElement(element, {
-          ...element.props,
-          children: {
-            ...element.props.children,
-            props: {
-              ...element.props.children.props,
-              updateNextPage,
-            },
-          },
-        });
-        return clonedChildP;
-      }
+      let clonedChildP = React.cloneElement(element, {
+        updateNextPage,
+      });
+
+      console.log(clonedChildP);
+      return clonedChildP;
     }
     return element;
   }

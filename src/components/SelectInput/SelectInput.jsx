@@ -63,6 +63,7 @@ const SelectInput = ({ question, onAnswer, showError, questionText, updateCurren
   return (
     <div 
     ref={inputRef}
+    className="question-container"
     >
       <div className="question-number-container">
         <span className="question-number">

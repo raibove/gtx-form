@@ -26,7 +26,7 @@ const TextInput = ({
   }, [isInViewport1]);
 
   return (
-    <div>
+    <div className="question-container">
       <div className="question-number-container">
         <span className="question-number">
           {question.id}{" "}

@@ -53,6 +53,9 @@ const questions = [
       "Structured approach to growth",
       "Build a growth team",
     ],
+    condition: (answers) =>
+      answers.find((a) => a.id === 4) &&
+      answers.find((a) => a.id === 4).value !== "Founder or CXO",
   },
   {
     id: 6,
@@ -64,6 +67,9 @@ const questions = [
       "Build a growth team",
       "Connect with like minded people",
     ],
+    condition: (answers) =>
+      answers.find((a) => a.id === 4) &&
+      answers.find((a) => a.id === 4).value === "Founder or CXO",
   },
 ];
 
@@ -87,7 +93,7 @@ function App() {
       } else {
         newAnswers.push({
           id: questionId,
-          type: questions.find(q=>q.id === questionId).type,
+          type: questions.find((q) => q.id === questionId).type,
           value: answer,
         });
       }
@@ -106,6 +112,11 @@ function App() {
     }
 
     const questionText = question.text.replace("{name}", name);
+
+    if (question.condition && !question.condition(answers)) {
+      return null;
+    }
+
     switch (question.type) {
       case "text":
         return (
@@ -152,21 +163,14 @@ function App() {
 
   return (
     <FullScroll
-    answers={answers}
+      answers={answers}
       questions={questions}
       handleShowError={handleShowError}
       currentQuestionId={currentQuestionId}
     >
-      <div>
-        <Terms />
-      </div>
-
+      <Terms />
       {questions.map((question) => {
-        return (
-          <div className="question-container" key={question.id}>
-            {getCurrentQuestion(question)}
-          </div>
-        );
+        return getCurrentQuestion(question);
       })}
     </FullScroll>
   );
