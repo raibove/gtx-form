@@ -11,7 +11,8 @@ const CheckboxInput = ({
   onAnswer,
   showError,
   questionText,
-  updateCurrentQustionId,
+  updateCurrentQuestionId,
+  questionNumber,
   updateNextPage,
 }) => {
   const checkboxRef = useRef(null);
@@ -22,7 +23,7 @@ const CheckboxInput = ({
 
     if (isInViewport1) {
       checkboxRef.current.focus();
-      updateCurrentQustionId(question.id);
+      updateCurrentQuestionId(question.id);
     }
   }, [isInViewport1]);
 
@@ -48,7 +49,7 @@ const CheckboxInput = ({
     <div className="question-container">
       <div className="question-number-container">
         <span className="question-number">
-          {question.id}{" "}
+          {questionNumber}{" "}
           <img src={rightArrow} alt="right arrow" className="right-arrow" />
         </span>
         <label className="question-text" htmlFor={question.id}>

@@ -77,8 +77,22 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [showError, setShowError] = useState(false);
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
+  const [questionNumber, setQuestionNumber] = useState(1);
 
-  const updateCurrentQustionId = (questionId) => {
+  const updateCurrentQuestionNumber = (prevQuestionNumber, questionId) => {
+    if (questionId > currentQuestionId) {
+      return prevQuestionNumber + 1;
+    } else if (questionId < currentQuestionId) {
+      return prevQuestionNumber - 1;
+    }
+    return prevQuestionNumber;
+  };
+
+  const updateCurrentQuestionId = (questionId) => {
+    setQuestionNumber((prevQuestionNumber) => {
+      updateCurrentQuestionNumber(prevQuestionNumber, questionId);
+    });
+
     setCurrentQuestionId(questionId);
   };
 
@@ -127,7 +141,8 @@ function App() {
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
-            updateCurrentQustionId={updateCurrentQustionId}
+            updateCurrentQuestionId={updateCurrentQuestionId}
+            questionNumber={questionNumber}
           />
         );
       case "select":
@@ -138,7 +153,8 @@ function App() {
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
-            updateCurrentQustionId={updateCurrentQustionId}
+            updateCurrentQuestionId={updateCurrentQuestionId}
+            questionNumber={questionNumber}
           />
         );
       case "checkbox":
@@ -149,7 +165,8 @@ function App() {
             onAnswer={handleAnswer}
             showError={showError}
             questionText={questionText}
-            updateCurrentQustionId={updateCurrentQustionId}
+            updateCurrentQuestionId={updateCurrentQuestionId}
+            questionNumber={questionNumber}
           />
         );
       default:

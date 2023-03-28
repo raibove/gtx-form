@@ -11,7 +11,8 @@ const TextInput = ({
   onAnswer,
   showError,
   questionText,
-  updateCurrentQustionId,
+  questionNumber,
+  updateCurrentQuestionId,
   updateNextPage,
 }) => {
   const inputRef = useRef(null);
@@ -21,7 +22,7 @@ const TextInput = ({
     // 👇️ listen for changes
     if (isInViewport1) {
       inputRef.current.focus();
-      updateCurrentQustionId(question.id);
+      updateCurrentQuestionId(question.id);
     }
   }, [isInViewport1]);
 
@@ -29,7 +30,7 @@ const TextInput = ({
     <div className="question-container">
       <div className="question-number-container">
         <span className="question-number">
-          {question.id}{" "}
+          {questionNumber}{" "}
           <img src={rightArrow} alt="right arrow" className="right-arrow" />
         </span>
         <label className="question-text" htmlFor={question.id}>

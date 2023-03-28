@@ -46,7 +46,7 @@ const customStyles = {
   }),
 };
 
-const SelectInput = ({ question, onAnswer, showError, questionText, updateCurrentQustionId, updateNextPage}) => {
+const SelectInput = ({ question, onAnswer, showError, questionText, updateCurrentQuestionId, questionNumber, updateNextPage}) => {
   const options = getData();
 
   const inputRef = useRef(null);
@@ -56,7 +56,7 @@ const SelectInput = ({ question, onAnswer, showError, questionText, updateCurren
     // 👇️ listen for changes
     if (isInViewport1) {
       // inputRef.current.focus();
-      updateCurrentQustionId(question.id)
+      updateCurrentQuestionId(question.id)
     }
   }, [isInViewport1]);
 
@@ -67,7 +67,7 @@ const SelectInput = ({ question, onAnswer, showError, questionText, updateCurren
     >
       <div className="question-number-container">
         <span className="question-number">
-          {question.id}{" "}
+          {questionNumber}{" "}
           <img src={rightArrow} alt="right arrow" className="right-arrow" />
         </span>
         <label className="question-text" htmlFor={question.id}>
