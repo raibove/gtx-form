@@ -93,8 +93,8 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
             borderRadius: 0,
             colors: {
               ...theme.colors,
-              primary25: "hotpink",
-              primary: "black",
+              primary25: "rgb(48,48,48,0.7)",
+              primary: "rgb(48,48,48)",
             },
           })}
           components={{DropdownIndicator:inputValue!==null ? null : (props) => <components.DropdownIndicator {...props}/>}}

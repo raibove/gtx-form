@@ -87,10 +87,8 @@
   line-height: 16px;
   font-family: sans-serif;
   border-radius: 2px;
-
   border-width: 1px;
   border-style: solid;
-
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -131,4 +129,11 @@
   color: rgb(255, 255, 255);
   margin-bottom: 5px;
   min-height: 30px;
+}
+
+@media only screen and (max-width: 576px){
+  .radio-text{
+    font-size: 18px;
+    line-height: 24px;
+  }
 }

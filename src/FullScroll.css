@@ -34,3 +34,9 @@
   justify-content: center;
   margin-top: 100px;
 }
+
+@media only screen and (max-width: 576px){
+  .full-scroll-page{
+    margin-top: 60px;
+  }
+}
