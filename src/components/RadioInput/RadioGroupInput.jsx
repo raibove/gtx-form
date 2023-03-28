@@ -30,36 +30,32 @@ const RadioGroupInput = ({
     }
   }, [isInViewport1]);
 
+
   const handleOptionChange = (option) => {
-    console.log("I'm called")
-    if(disabledOptions.includes(option))
-        return;
+    if (disabledOptions.includes(option)) return;
     let newSelectedOptions = selectedOptions;
-    console.log("option: ",option)
 
     if (selectedOptions.includes(option)) {
       newSelectedOptions = selectedOptions.filter((o) => o !== option);
-      setDisabledOptions([])
-    }  else {
-      // If the maximum number of selections has been reached, disable other options
-      if (newSelectedOptions.length === maxSelections) {
-        const newDisabledOptions = question.options.filter(
-          (o) => !newSelectedOptions.includes(o)
-        );
-        setDisabledOptions(newDisabledOptions);
-      } else {
+      setDisabledOptions([]);
+    } else {
+      if (newSelectedOptions.length !== maxSelections) {
         newSelectedOptions = [...newSelectedOptions, option];
       }
     }
 
-    
-    console.log(newSelectedOptions);
+    if (newSelectedOptions.length === maxSelections) {
+      const newDisabledOptions = question.options.filter(
+        (o) => !newSelectedOptions.includes(o)
+      );
+      setDisabledOptions(newDisabledOptions);
+    }
     onAnswer(newSelectedOptions, question.id);
     setSelectedOptions(newSelectedOptions);
   };
 
+
   const handleKeyDown = (event) => {
-    console.log("key downnn")
     if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
       const key = event.key.toUpperCase().charCodeAt(0);
       const index = key - 65;
