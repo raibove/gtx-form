@@ -130,7 +130,10 @@ function App() {
   };
 
   const handleAnswer = (answer, questionId) => {
-    if (answer === " ") return;
+    if (answer === " " || answer.length===0){ 
+      removeAnswer();
+      // return;
+    };
 
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
@@ -232,6 +235,15 @@ function App() {
     setShowError(newError);
   };
 
+  const removeAnswer = ()=>{
+    let newAnswers = answers;
+          let currAnsIndex = answers.findIndex((ans)=> {
+            return ans.id === currentQuestionId
+          })
+          newAnswers.splice(currAnsIndex, 1);
+          setAnswers(newAnswers)
+  }
+
   const isRequiredQuestionAnswered = () => {
     let currentQuestion = questions.find((q) => q.id === currentQuestionId);
     let currentAnswer = answers.find((a) => a.id === currentQuestionId);
@@ -241,6 +253,9 @@ function App() {
       if (currentQuestion.type === "radio-group") {
         if (currentAnswer.value.length === 0) {
           setError("Oops! Please make a selection");
+
+         removeAnswer()
+
           return false;
         } else if (currentAnswer.value.length < currentQuestion.maxSelect) {
           setError("Please make more choices");
@@ -252,6 +267,8 @@ function App() {
         } else {
           setError("Please make a selection");
         }
+
+        removeAnswer()
         return false;
       }
 
@@ -263,7 +280,7 @@ function App() {
         setError("Hmmm... that doesn't look right")
         return false;
       }
-      
+
       return true;
     }
 
