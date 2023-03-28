@@ -67,14 +67,8 @@ const questions = [
   },
 ];
 
-const initialAnswersState = questions.map((question) => ({
-  id: question.id,
-  type: question.type,
-  value: null,
-}));
-
 function App() {
-  const [answers, setAnswers] = useState([{id:100, value:"test"}]);
+  const [answers, setAnswers] = useState([]);
   const [showError, setShowError] = useState(false);
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
 
@@ -93,7 +87,7 @@ function App() {
       } else {
         newAnswers.push({
           id: questionId,
-          type: questions[questionId].type,
+          type: questions.find(q=>q.id === questionId).type,
           value: answer,
         });
       }
