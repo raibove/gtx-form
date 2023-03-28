@@ -87,11 +87,6 @@ const RadioInput = ({
                 selectedOption === option ? "active" : ""
               }`}
             >
-              <input
-                type="radio"
-                name="radioGroup"
-                value={option}
-              />
               <span className="radio-text">{option}</span>
             </label>
             <div

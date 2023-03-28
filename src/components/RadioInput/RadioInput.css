@@ -15,6 +15,7 @@
   outline: none;
 }
 
+
 .radio-button {
   margin-bottom: 8px;
   margin-right: 0px;
@@ -39,22 +40,26 @@
   align-items: center;
 }
 
-.radio-button.active {
-  border-color: white;
-}
 
 .radio-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.radio-button input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+.radio-button.disabled:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.radio-button.disabled{
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
 .radio-label {
   flex-grow: 1;
+}
+
+.radio-label.disabled{
+  color: rgb(75,75,75);
 }
 
 .radio-text {
@@ -65,8 +70,6 @@
   flex: 1 1 0%;
   min-width: 75px;
   text-align: left;
-  cursor: pointer;
-
   font-weight: unset;
   font-size: 20px;
   line-height: 28px;
@@ -97,6 +100,11 @@
 .key-hint.active {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
+}
+
+.key-hint.disabled{
+  border-color: rgb(75, 75, 75);
+  color: rgb(75,75,75);
 }
 
 .checked {

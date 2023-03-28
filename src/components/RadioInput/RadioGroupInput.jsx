@@ -19,6 +19,7 @@ const RadioGroupInput = ({
   const radioRef = useRef(null);
   const isInViewport1 = useIsInViewport(radioRef);
   const [selectedOptions, setSelectedOptions] = useState([]);
+ const [disabledOptions, setDisabledOptions] = useState([]);
 
   useEffect(() => {
     // 👇️ listen for changes
@@ -30,23 +31,35 @@ const RadioGroupInput = ({
   }, [isInViewport1]);
 
   const handleOptionChange = (option) => {
-    let newSelectedOptions;
+    console.log("I'm called")
+    if(disabledOptions.includes(option))
+        return;
+    let newSelectedOptions = selectedOptions;
+    console.log("option: ",option)
 
     if (selectedOptions.includes(option)) {
       newSelectedOptions = selectedOptions.filter((o) => o !== option);
-    } else {
-      if (selectedOptions.length < maxSelections) {
-        newSelectedOptions = [...selectedOptions, option];
+      setDisabledOptions([])
+    }  else {
+      // If the maximum number of selections has been reached, disable other options
+      if (newSelectedOptions.length === maxSelections) {
+        const newDisabledOptions = question.options.filter(
+          (o) => !newSelectedOptions.includes(o)
+        );
+        setDisabledOptions(newDisabledOptions);
       } else {
-        return;
+        newSelectedOptions = [...newSelectedOptions, option];
       }
     }
+
+    
     console.log(newSelectedOptions);
     onAnswer(newSelectedOptions, question.id);
     setSelectedOptions(newSelectedOptions);
   };
 
   const handleKeyDown = (event) => {
+    console.log("key downnn")
     if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
       const key = event.key.toUpperCase().charCodeAt(0);
       const index = key - 65;
@@ -80,31 +93,29 @@ const RadioGroupInput = ({
         {question.options.map((option, index) => (
           <div
             key={option}
-            className="radio-button"
+            className={`radio-button  ${disabledOptions.includes(option) ? "disabled" : ""}`}
             onClick={() => handleOptionChange(option)}
           >
             <div className="key-hint-container">
               <div
-                className={`key-hint ${
-                  selectedOptions.includes(option) ? "active" : ""
-                }`}
+                className={`key-hint 
+                ${selectedOptions.includes(option) ? "active" : ""} 
+                ${disabledOptions.includes(option) ? "disabled" : ""}
+                `}
               >
                 {String.fromCharCode(65 + index)}
               </div>
             </div>
-            <label
-              key={option}
-              className={`radio-label ${
-                selectedOptions.includes(option) ? "active" : ""
-              }`}
-            >
-              <input type="radio" name="radioGroup" value={option} />
-              <span className="radio-text">{option}</span>
-            </label>
             <div
-              className={`checked ${
-                selectedOptions.includes(option) ? "active" : ""
-              }`}
+              key={option}
+              className={`radio-label  ${disabledOptions.includes(option) ? "disabled" : ""}`}
+            >
+              <span className="radio-text">{option}</span>
+            </div>
+            <div
+              className={`checked 
+              ${selectedOptions.includes(option) ? "active" : ""}
+              `}
             >
               <img src={check} alt="checked" className="radio-checked" />
             </div>
