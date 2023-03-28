@@ -85,6 +85,15 @@ const questions = [
     placeholder: "name@example.com",
     validation: "email",
   },
+  {
+    id: 8,
+    type: "text",
+    text: "Your phone number",
+    isRequired: true,
+    subTitle: "We won't call you unless it is absolutely required to process your application.",
+    placeholder: "089621 8845",
+    validation: "phone"
+  }
 ];
 
 const isValidEmail = (email) => {
@@ -101,6 +110,7 @@ function App() {
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [loading, setLoading] = useState(true);
+
 
   const updateCurrentQuestionNumber = (prevQuestionNumber, questionId) => {
     if (questionId > currentQuestionId) {
@@ -253,6 +263,7 @@ function App() {
         setError("Hmmm... that doesn't look right")
         return false;
       }
+      
       return true;
     }
 

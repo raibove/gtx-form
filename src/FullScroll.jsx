@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./FullScroll.css";
 import gxtLogo from "./assets/gtx-logo.svg";
+import ProgressBar from "./components/ProgressBar/ProgressBar";
 
 // For individual pages
 const FullScrollPage = (props) => {
-  const { logo, children } = props;
+  const { logo, children, answers } = props;
   return (
     <div className="full-scroll-page">
+      <ProgressBar answers={answers} totalQuestions={7}/>
       <img src={logo} alt="GrowtX" className="logo" />
       <div className="full-scroll-page-content">{children}</div>
     </div>
@@ -135,7 +137,7 @@ function FullScroll(props) {
     >
       <div className="full-scroll-content" style={containerStyle}>
         {pages.map((page, index) => (
-          <FullScrollPage key={index} logo={gxtLogo}>
+          <FullScrollPage key={index} logo={gxtLogo} answers={answers}>
             {addPropsToChildren(page)}
           </FullScrollPage>
         ))}
