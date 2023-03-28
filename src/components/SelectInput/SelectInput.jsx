@@ -1,9 +1,9 @@
 import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
-import Select from "react-select";
+import Select, {components} from "react-select";
 import { getData } from "./data";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import useIsInViewport from "../../hooks/useIsInViewport";
 
 
@@ -48,7 +48,7 @@ const customStyles = {
 
 const SelectInput = ({ error, question, onAnswer, showError, questionText, updateCurrentQuestionId, questionNumber, updateNextPage}) => {
   const options = getData();
-
+  const [inputValue, setInputValue] = useState(null);
   const inputRef = useRef(null);
   const isInViewport1 = useIsInViewport(inputRef);
 
@@ -80,8 +80,10 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
       <div style={{ marginTop: "32px" }}>
         <Select
           isClearable={true}
+          value={inputValue}
           options={options}
           onChange={(option) => {
+            setInputValue(option)
             onAnswer(option, question.id);
           }}
           styles={customStyles}
@@ -95,6 +97,7 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
               primary: "black",
             },
           })}
+          components={{DropdownIndicator:inputValue!==null ? null : (props) => <components.DropdownIndicator {...props}/>}}
         />
       </div>
       <div>{showError && <ErrorContainer error={error}/>}</div>

@@ -130,7 +130,7 @@ function App() {
   };
 
   const handleAnswer = (answer, questionId) => {
-    if (answer === " " || answer.length===0){ 
+    if (answer===null || answer === " " || answer.length===0){ 
       removeAnswer();
       // return;
     };
@@ -228,7 +228,10 @@ function App() {
   };
 
   useEffect(() => {
-    setLoading(false);
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const handleShowError = (newError) => {
