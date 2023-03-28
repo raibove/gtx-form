@@ -75,7 +75,24 @@ const questions = [
       answers.find((a) => a.id === 4).value === "Founder or CXO",
     maxSelect: 2,
   },
+  {
+    id: 7,
+    type: "text",
+    text: "Email you'd like to register with?",
+    isRequired: true,
+    subTitle:
+      "We will keep all our communications with you through this email. Do check your spam inbox if you can't find our application received email.[ 🔴DEVELOPER NOTICE: Responses submitted to this form will be forwarded to the email you input here, for you to test data submissions.]",
+    placeholder: "name@example.com",
+    validation: "email",
+  },
 ];
+
+const isValidEmail = (email) => {
+  let validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (email.match(validRegex)) return true;
+
+  return false;
+};
 
 function App() {
   const [answers, setAnswers] = useState([]);
@@ -222,19 +239,27 @@ function App() {
       } else if (currentAnswer.value.length === 0) {
         if (currentQuestion.type === "text") {
           setError("Please fill this in");
-        }else{
-          setError("Please make a selection")
+        } else {
+          setError("Please make a selection");
         }
         return false;
       }
-      
+
+      if (currentQuestion.validation === "email") {
+        if(isValidEmail(currentAnswer.value)){
+          return true;
+        }
+
+        setError("Hmmm... that doesn't look right")
+        return false;
+      }
       return true;
     }
 
     if (currentQuestion.type === "text") {
       setError("Please fill this in");
-    }else{
-      setError("Please make a selection")
+    } else {
+      setError("Please make a selection");
     }
     return false;
   };

@@ -38,6 +38,9 @@ const TextInput = ({
           {questionText} {question.isRequired && <span>*</span>}
         </label>
       </div>
+      <div className="question-subtitle">
+        <span>{question.subTitle}</span>
+      </div>
       <div>
         <input
           ref={inputRef}
@@ -45,7 +48,7 @@ const TextInput = ({
           type="text"
           id={question.id}
           onChange={(e) => onAnswer(e.target.value, question.id)}
-          placeholder="Type your answer here ..."
+          placeholder={question.placeholder ? question.placeholder :"Type your answer here ..."}
           value={
             answers.find((a) => a.id === question.id) !== undefined
               ? answers.find((a) => a.id === question.id).value
