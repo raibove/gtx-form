@@ -5,6 +5,7 @@ import FullScroll from "./FullScroll";
 import "./App.css";
 import SelectInput from "./components/SelectInput/SelectInput";
 import CheckboxInput from "./components/CheckboxInput/CheckboxInput";
+import Loader from "./components/Loader/Loader";
 
 const questions = [
   {
@@ -78,6 +79,7 @@ function App() {
   const [showError, setShowError] = useState(false);
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const updateCurrentQuestionNumber = (prevQuestionNumber, questionId) => {
     if (questionId > currentQuestionId) {
@@ -174,22 +176,33 @@ function App() {
     }
   };
 
+  useEffect(() => {
+      setLoading(false);
+  }, []);
+
+
   const handleShowError = (newError) => {
     setShowError(newError);
   };
 
+  if(loading){
+    return <Loader />
+  }
+
   return (
-    <FullScroll
-      answers={answers}
-      questions={questions}
-      handleShowError={handleShowError}
-      currentQuestionId={currentQuestionId}
-    >
-      <Terms />
-      {questions.map((question) => {
-        return getCurrentQuestion(question);
-      })}
-    </FullScroll>
+    <>
+      <FullScroll
+        answers={answers}
+        questions={questions}
+        handleShowError={handleShowError}
+        currentQuestionId={currentQuestionId}
+      >
+        <Terms />
+        {questions.map((question) => {
+          return getCurrentQuestion(question);
+        })}
+      </FullScroll>
+    </>
   );
 }
 
