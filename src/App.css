@@ -13,7 +13,7 @@
 
 .question-container {
   padding: 0 80px;
-  max-width: 720px;
+  max-width: 100vw;
 }
 
 .right-arrow {
@@ -44,17 +44,17 @@
 
 @media only screen and (max-width: 576px){
   .question-container{
-    padding: 0 40px;
+    padding: 0 20px;
   }
 
   .question-text{
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: 20px;
   }
 
   .question-subtitle{
-    font-size: 17px;
-    line-height: 21px;
+    font-size: 14px;
+    line-height: 18px;
   }
 
 }

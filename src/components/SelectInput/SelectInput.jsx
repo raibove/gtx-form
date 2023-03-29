@@ -1,11 +1,10 @@
 import rightArrow from "../../assets/right-arrow.svg";
 import ButtonContainer from "../ButtonContainer/ButtonContainer";
 import ErrorContainer from "../ErrorContainer/ErrorContainer";
-import Select, {components} from "react-select";
+import Select, { components } from "react-select";
 import { getData } from "./data";
 import { useRef, useEffect, useState } from "react";
 import useIsInViewport from "../../hooks/useIsInViewport";
-
 
 const customStyles = {
   option: (provided, state) => ({
@@ -35,16 +34,16 @@ const customStyles = {
     ...styles,
     color: "white",
     fontSize: "30px",
-    '@media(max-width: 576px)': {
+    "@media(max-width: 576px)": {
       fontSize: "20px",
-    }
+    },
   }),
   placeholder: (styles) => ({
     ...styles,
     fontSize: "30px",
-    '@media(max-width: 576px)': {
+    "@media(max-width: 576px)": {
       fontSize: "20px",
-    }
+    },
   }),
   indicatorSeparator: (styles) => ({
     ...styles,
@@ -52,7 +51,16 @@ const customStyles = {
   }),
 };
 
-const SelectInput = ({ error, question, onAnswer, showError, questionText, updateCurrentQuestionId, questionNumber, updateNextPage}) => {
+const SelectInput = ({
+  error,
+  question,
+  onAnswer,
+  showError,
+  questionText,
+  updateCurrentQuestionId,
+  questionNumber,
+  updateNextPage,
+}) => {
   const options = getData();
   const [inputValue, setInputValue] = useState(null);
   const inputRef = useRef(null);
@@ -61,16 +69,13 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
   useEffect(() => {
     // 👇️ listen for changes
     if (isInViewport1) {
-      // inputRef.current.focus();
-      updateCurrentQuestionId(question.id)
+      inputRef.current.focus();
+      updateCurrentQuestionId(question.id);
     }
   }, [isInViewport1]);
 
   return (
-    <div 
-    ref={inputRef}
-    className="question-container"
-    >
+    <div  className="question-container">
       <div className="question-number-container">
         <span className="question-number">
           {questionNumber}{" "}
@@ -83,13 +88,13 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
       <div className="question-subtitle">
         <span>{question.subTitle}</span>
       </div>
-      <div style={{ marginTop: "32px" }}>
+      <div style={{ marginTop: "32px" }} ref={inputRef}>
         <Select
           isClearable={true}
           value={inputValue}
           options={options}
           onChange={(option) => {
-            setInputValue(option)
+            setInputValue(option);
             onAnswer(option, question.id);
           }}
           styles={customStyles}
@@ -103,13 +108,22 @@ const SelectInput = ({ error, question, onAnswer, showError, questionText, updat
               primary: "rgb(48,48,48)",
             },
           })}
-          components={{DropdownIndicator:inputValue!==null ? null : (props) => <components.DropdownIndicator {...props}/>}}
+          components={{
+            DropdownIndicator:
+              inputValue !== null
+                ? null
+                : (props) => <components.DropdownIndicator {...props} />,
+          }}
         />
       </div>
-      <div>{showError && <ErrorContainer error={error}/>}</div>
+      <div>{showError && <ErrorContainer error={error} />}</div>
       <div>
         {!showError && (
-          <ButtonContainer buttonText="OK" showPressEnter={true} handleButtonClick={updateNextPage}/>
+          <ButtonContainer
+            buttonText="OK"
+            showPressEnter={true}
+            handleButtonClick={updateNextPage}
+          />
         )}
       </div>
     </div>

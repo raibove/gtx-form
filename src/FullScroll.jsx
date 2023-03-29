@@ -8,15 +8,16 @@ const FullScrollPage = (props) => {
   const { logo, children, answers } = props;
   return (
     <div className="full-scroll-page">
-      <ProgressBar answers={answers} totalQuestions={7}/>
-      <img src={logo} alt="GrowtX" className="logo" />
+        <ProgressBar answers={answers} totalQuestions={7}/>
+        <img src={logo} alt="GrowtX" className="logo" />
       <div className="full-scroll-page-content">{children}</div>
     </div>
   );
 };
 
+
 function FullScroll(props) {
-  const { answers, handleShowError, isRequiredQuestionAnswered } = props;
+  const { answers, handleShowError, currentQuestionId, isRequiredQuestionAnswered } = props;
 
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
@@ -29,19 +30,19 @@ function FullScroll(props) {
     return true;
   };
 
-
-
   const handleNextQuestion = (pageIndex) => {
     // dont scroll if required not filled
     if (isQuestion(pageIndex) && !isRequiredQuestionAnswered()) {
       handleShowError(true);
       return pageIndex;
     }
+
     return Math.min(pageIndex + 1, pages.length - 1);
   };
 
   const handlePrevQuestion = (pageIndex) => {
     handleShowError(false);
+
     return Math.max(pageIndex - 1, 0);
   };
 
@@ -91,7 +92,7 @@ function FullScroll(props) {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, [answers]);
+  }, [answers, currentQuestionId]);
 
   const containerStyle = {
     transform: `translateY(-${currentPageIndex * (100 / pages.length)}%)`,

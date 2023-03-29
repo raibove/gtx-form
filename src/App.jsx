@@ -90,10 +90,11 @@ const questions = [
     type: "text",
     text: "Your phone number",
     isRequired: true,
-    subTitle: "We won't call you unless it is absolutely required to process your application.",
+    subTitle:
+      "We won't call you unless it is absolutely required to process your application.",
     placeholder: "089621 8845",
-    validation: "phone"
-  }
+    validation: "phone",
+  },
 ];
 
 const isValidEmail = (email) => {
@@ -110,7 +111,6 @@ function App() {
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [loading, setLoading] = useState(true);
-
 
   const updateCurrentQuestionNumber = (prevQuestionNumber, questionId) => {
     if (questionId > currentQuestionId) {
@@ -130,10 +130,10 @@ function App() {
   };
 
   const handleAnswer = (answer, questionId) => {
-    if (answer===null || answer === " " || answer.length===0){ 
+    if (answer === null || answer === " " || answer.length === 0) {
       removeAnswer();
       return;
-    };
+    }
 
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
@@ -238,14 +238,14 @@ function App() {
     setShowError(newError);
   };
 
-  const removeAnswer = ()=>{
+  const removeAnswer = () => {
     let newAnswers = answers;
-          let currAnsIndex = answers.findIndex((ans)=> {
-            return ans.id === currentQuestionId
-          })
-          newAnswers.splice(currAnsIndex, 1);
-          setAnswers(newAnswers)
-  }
+    let currAnsIndex = answers.findIndex((ans) => {
+      return ans.id === currentQuestionId;
+    });
+    newAnswers.splice(currAnsIndex, 1);
+    setAnswers([...newAnswers]);
+  };
 
   const isRequiredQuestionAnswered = () => {
     let currentQuestion = questions.find((q) => q.id === currentQuestionId);
@@ -254,33 +254,36 @@ function App() {
 
     if (currentAnswer) {
       if (currentQuestion.type === "radio-group") {
-        if (currentAnswer.value.length === 0) {
-          setError("Oops! Please make a selection");
+        if (currentAnswer.value === null || currentAnswer.value.length === 0) {
+          handleSetError("Oops! Please make a selection");
 
-         removeAnswer()
+          removeAnswer();
 
           return false;
         } else if (currentAnswer.value.length < currentQuestion.maxSelect) {
-          setError("Please make more choices");
+          handleSetError("Please make more choices");
           return false;
         }
-      } else if (currentAnswer.value.length === 0) {
+      } else if (
+        currentAnswer.value === null ||
+        currentAnswer.value.length === 0
+      ) {
         if (currentQuestion.type === "text") {
-          setError("Please fill this in");
+          handleSetError("Please fill this in");
         } else {
-          setError("Please make a selection");
+          handleSetError("Please make a selection");
         }
 
-        removeAnswer()
+        removeAnswer();
         return false;
       }
 
       if (currentQuestion.validation === "email") {
-        if(isValidEmail(currentAnswer.value)){
+        if (isValidEmail(currentAnswer.value)) {
           return true;
         }
 
-        setError("Hmmm... that doesn't look right")
+        handleSetError("Hmmm... that doesn't look right");
         return false;
       }
 
@@ -288,11 +291,15 @@ function App() {
     }
 
     if (currentQuestion.type === "text") {
-      setError("Please fill this in");
+      handleSetError("Please fill this in");
     } else {
-      setError("Please make a selection");
+      handleSetError("Please make a selection");
     }
     return false;
+  };
+
+  const handleSetError = (newError) => {
+    setError(newError);
   };
 
   if (loading) {
@@ -302,9 +309,10 @@ function App() {
   return (
     <>
       <FullScroll
-        answers={answers}
         isRequiredQuestionAnswered={isRequiredQuestionAnswered}
+        answers={answers}
         handleShowError={handleShowError}
+        currentQuestionId={currentQuestionId}
       >
         <Terms />
         {questions.map((question) => {
