@@ -31,8 +31,14 @@ const RadioInput = ({
 
 
   const handleOptionChange = (option) => {
-    onAnswer(option, question.id);
-    setSelectedOption(option);
+    if(option===selectedOption){
+      setSelectedOption(null)
+      onAnswer(null, question.id)
+    }else{
+      onAnswer(option, question.id);
+      setSelectedOption(option);
+    }
+    
   };
 
   const handleKeyDown = (event) => {
@@ -40,8 +46,7 @@ const RadioInput = ({
       const key = event.key.toUpperCase().charCodeAt(0);
       const index = key - 65;
       if (index < question.options.length) {
-        onAnswer(question.options[index], question.id);
-        setSelectedOption(question.options[index]);
+        handleOptionChange(question.options[index])
       }
     }
   };
