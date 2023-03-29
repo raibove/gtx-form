@@ -60,7 +60,8 @@ const TextInput = ({
       <div>
         {!showError && (
           <ButtonContainer
-            buttonText="OK"
+            buttonText={question.isLastQuestion === true ? "Submit" : "OK"}
+            showPressEnterText={question.isLastQuestion === true ? "Ctrl + Enter" : "Enter"}
             showPressEnter={true}
             handleButtonClick={updateNextPage}
           />

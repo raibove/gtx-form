@@ -1,14 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
-:root {
-  font-family: "Questrial", sans-serif;
-  background-color: #ffffff;
-}
-
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  background-color: black;
 }
 
 h1 {

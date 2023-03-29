@@ -7,6 +7,7 @@ import SelectInput from "./components/SelectInput/SelectInput";
 import RadioInput from "./components/RadioInput/RadioInput";
 import RadioGroupInput from "./components/RadioInput/RadioGroupInput";
 import Loader from "./components/Loader/Loader";
+import CompletionMessage from "./components/CompletionMessage/CompletionMessage";
 
 const questions = [
   {
@@ -94,6 +95,7 @@ const questions = [
       "We won't call you unless it is absolutely required to process your application.",
     placeholder: "089621 8845",
     validation: "phone",
+    isLastQuestion: true
   },
 ];
 
@@ -111,6 +113,7 @@ function App() {
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [submitForm, setSubmitForm] = useState(false);
 
   const updateCurrentQuestionNumber = (prevQuestionNumber, questionId) => {
     if (questionId > currentQuestionId) {
@@ -302,16 +305,30 @@ function App() {
     setError(newError);
   };
 
+
+  const checkIfLastQuestion = ()=>{
+    let currentQuestion = questions.find((q) => q.id === currentQuestionId);
+    if(currentQuestion.isLastQuestion && isRequiredQuestionAnswered()){
+      setSubmitForm(true)
+    }
+
+    return;
+  }
+
   if (loading) {
     return <Loader />;
   }
 
+  if(submitForm){
+    return <CompletionMessage />
+  }
   return (
     <>
       <FullScroll
         isRequiredQuestionAnswered={isRequiredQuestionAnswered}
         answers={answers}
         handleShowError={handleShowError}
+        checkIfLastQuestion={checkIfLastQuestion}
         currentQuestionId={currentQuestionId}
       >
         <Terms />

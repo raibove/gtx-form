@@ -139,6 +139,7 @@ const RadioGroupInput = ({
             buttonText="OK"
             showPressEnter={true}
             handleButtonClick={updateNextPage}
+            showPressEnterText={question.isLastQuestion === true ? "Ctrl + Enter" : "Enter"}
           />
         )}
       </div>

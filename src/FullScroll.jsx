@@ -8,16 +8,21 @@ const FullScrollPage = (props) => {
   const { logo, children, answers } = props;
   return (
     <div className="full-scroll-page">
-        <ProgressBar answers={answers} totalQuestions={7}/>
-        <img src={logo} alt="GrowtX" className="logo" />
+      <ProgressBar answers={answers} totalQuestions={7} />
+      <img src={logo} alt="GrowtX" className="logo" />
       <div className="full-scroll-page-content">{children}</div>
     </div>
   );
 };
 
-
 function FullScroll(props) {
-  const { answers, handleShowError, currentQuestionId, isRequiredQuestionAnswered } = props;
+  const {
+    answers,
+    handleShowError,
+    currentQuestionId,
+    isRequiredQuestionAnswered,
+    checkIfLastQuestion
+  } = props;
 
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pages = React.Children.toArray(props.children);
@@ -51,8 +56,8 @@ function FullScroll(props) {
       ? handleNextQuestion(prevPageIndex)
       : handlePrevQuestion(prevPageIndex);
   };
-  useEffect(() => {
 
+  useEffect(() => {
     let isScrolling = false;
     let startY;
 
@@ -67,8 +72,7 @@ function FullScroll(props) {
       const container = event.target;
       const isAtTop = container.scrollTop === 0;
       const isAtBottom =
-        container.scrollHeight - container.scrollTop ===
-        container.clientHeight;
+        container.scrollHeight - container.scrollTop === container.clientHeight;
 
       if (!isScrolling && Math.abs(deltaY) > SCROLL_THRESHOLD) {
         if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
@@ -101,8 +105,7 @@ function FullScroll(props) {
       const container = event.target;
       const isAtTop = container.scrollTop === 0;
       const isAtBottom =
-        container.scrollHeight - container.scrollTop ===
-        container.clientHeight;
+        container.scrollHeight - container.scrollTop === container.clientHeight;
 
       if (!isScrolling && Math.abs(event.deltaY) > SCROLL_THRESHOLD) {
         if ((delta > 0 && !isAtBottom) || (delta < 0 && !isAtTop)) {
@@ -127,7 +130,6 @@ function FullScroll(props) {
       }
     };
 
-
     window.addEventListener("touchstart", handleTouchStart);
     window.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -151,7 +153,11 @@ function FullScroll(props) {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && event.ctrlKey) {
+      event.preventDefault();
+      checkIfLastQuestion()
+    }
+    else if (event.key === "Enter") {
       event.preventDefault();
       updateNextPage();
     }

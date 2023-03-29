@@ -121,6 +121,7 @@ const SelectInput = ({
         {!showError && (
           <ButtonContainer
             buttonText="OK"
+            showPressEnterText={question.isLastQuestion === true ? "Ctrl + Enter" : "Enter"}
             showPressEnter={true}
             handleButtonClick={updateNextPage}
           />
