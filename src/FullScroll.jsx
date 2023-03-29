@@ -149,6 +149,7 @@ function FullScroll(props) {
   };
 
   const updateNextPage = () => {
+    checkIfLastQuestion()
     setCurrentPageIndex((prevPageIndex) => handleNextQuestion(prevPageIndex));
   };
 
