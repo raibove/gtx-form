@@ -51,24 +51,63 @@ function FullScroll(props) {
       ? handleNextQuestion(prevPageIndex)
       : handlePrevQuestion(prevPageIndex);
   };
-
   useEffect(() => {
 
     let isScrolling = false;
-    const handleScroll = (event) => {
+    let startY;
+
+    const handleTouchStart = (event) => {
+      startY = event.touches[0].clientY;
+    };
+
+    const handleTouchMove = (event) => {
+      const deltaY = startY - event.touches[0].clientY;
+
+      // Check if the current page has reached the top or bottom
+      const container = event.target;
+      const isAtTop = container.scrollTop === 0;
+      const isAtBottom =
+        container.scrollHeight - container.scrollTop ===
+        container.clientHeight;
+
+      if (!isScrolling && Math.abs(deltaY) > SCROLL_THRESHOLD) {
+        if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
+          // Prevent default scrolling behavior
+          event.preventDefault();
+          const scrollY = container.scrollTop + deltaY;
+          container.scrollTo({
+            top: scrollY,
+            behavior: "smooth",
+          });
+        } else {
+          // Allow normal scrolling behavior
+          isScrolling = true;
+          const delta = Math.sign(deltaY);
+          setCurrentPageIndex((prevPageIndex) =>
+            getNextIndex(prevPageIndex, delta)
+          );
+
+          setTimeout(() => {
+            isScrolling = false;
+          }, 1000);
+        }
+      }
+    };
+
+    const handleWheel = (event) => {
       const delta = Math.sign(event.deltaY);
 
       // Check if the current page has reached the top or bottom
-      const isAtTop = event.target.scrollTop === 0;
+      const container = event.target;
+      const isAtTop = container.scrollTop === 0;
       const isAtBottom =
-        event.target.scrollHeight - event.target.scrollTop ===
-        event.target.clientHeight;
+        container.scrollHeight - container.scrollTop ===
+        container.clientHeight;
 
       if (!isScrolling && Math.abs(event.deltaY) > SCROLL_THRESHOLD) {
         if ((delta > 0 && !isAtBottom) || (delta < 0 && !isAtTop)) {
           // Prevent default scrolling behavior
           event.preventDefault();
-          const container = event.target;
           const scrollY = container.scrollTop + event.deltaY;
           container.scrollTo({
             top: scrollY,
@@ -87,10 +126,16 @@ function FullScroll(props) {
         }
       }
     };
-    window.addEventListener("wheel", handleScroll, { passive: false });
+
+
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("wheel", handleWheel, { passive: false });
 
     return () => {
-      window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("wheel", handleWheel);
     };
   }, [answers, currentQuestionId]);
 
