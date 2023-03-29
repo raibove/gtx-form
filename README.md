@@ -10,9 +10,11 @@ This is a clone of the Typeform web application built with Vite and React. The f
 - Error labels to indicate validation errors
 - Hover and select effects to enhance the user experience
 - Show questions based on condition
+- Add tests for testing main features of the Appliation
 
 # Pending Features and Improvements
 
+- For the question => Your role in your company? Accept text input when clicked on Other
 - Add flags with phone numeber
 - Add animation to select input to blink after selection
 - Improve responsiveness 

@@ -106,6 +106,12 @@ const isValidEmail = (email) => {
   return false;
 };
 
+const isValidPhoneNumber = (phone)=> {
+  let validRegex = /^\d{8,}$/
+  if(phone.match(validRegex)) return true
+  return false;
+}
+
 function App() {
   const [answers, setAnswers] = useState([]);
   const [showError, setShowError] = useState(false);
@@ -136,6 +142,20 @@ function App() {
     if (answer === null || answer === " " || answer.length === 0) {
       removeAnswer();
       return;
+    }
+
+    let currentQuestion = questions.find((q) => q.id === currentQuestionId);
+    if(currentQuestion.validation==="phone" && isNaN(answer)){
+      const phoneElement = document.getElementById("text-input");
+        phoneElement.classList.add("shake");
+        
+        setError("Numbers only please")
+        setShowError(true)
+        setTimeout(() => {
+          phoneElement.classList.remove("shake");
+          setShowError(false)
+        }, 800);
+        return;
     }
 
     setAnswers((prevAnswers) => {
@@ -286,7 +306,16 @@ function App() {
           return true;
         }
 
-        handleSetError("Hmmm... that doesn't look right");
+        handleSetError("Hmmm... that email doesn't look right");
+        return false;
+      }
+
+      if (currentQuestion.validation === "phone") {
+        if (isValidPhoneNumber(currentAnswer.value)) {
+          return true;
+        }
+
+        handleSetError("Hmmm... that phone number doesn't look right");
         return false;
       }
 

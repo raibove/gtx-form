@@ -28,7 +28,10 @@ const TextInput = ({
   }, [isInViewport1]);
 
   return (
-    <div className="question-container">
+    <div
+      className="question-container"
+      id={question.validation === "phone" ? "text-input" : ""}
+    >
       <div className="question-number-container">
         <span className="question-number">
           {questionNumber}{" "}
@@ -48,7 +51,11 @@ const TextInput = ({
           type="text"
           id={question.id}
           onChange={(e) => onAnswer(e.target.value, question.id)}
-          placeholder={question.placeholder ? question.placeholder :"Type your answer here ..."}
+          placeholder={
+            question.placeholder
+              ? question.placeholder
+              : "Type your answer here ..."
+          }
           value={
             answers.find((a) => a.id === question.id) !== undefined
               ? answers.find((a) => a.id === question.id).value
@@ -56,12 +63,14 @@ const TextInput = ({
           }
         />
       </div>
-      <div>{showError && <ErrorContainer error={error}/>}</div>
+      <div>{showError && <ErrorContainer error={error} />}</div>
       <div>
         {!showError && (
           <ButtonContainer
             buttonText={question.isLastQuestion === true ? "Submit" : "OK"}
-            showPressEnterText={question.isLastQuestion === true ? "Ctrl + Enter" : "Enter"}
+            showPressEnterText={
+              question.isLastQuestion === true ? "Ctrl + Enter" : "Enter"
+            }
             showPressEnter={true}
             handleButtonClick={updateNextPage}
           />
