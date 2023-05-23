@@ -13,7 +13,7 @@ const questions = [
   {
     id: 1,
     type: "text",
-    text: "What's is your first name?",
+    text: "What is your first name?",
     isRequired: true,
   },
   {
